@@ -22,14 +22,14 @@
     }
   },
   "projects": {
-    "geeek-platform": {
+    "geek-platform": {
       "tags": []
     },
-    "geeek-platform-e2e": {
+    "geek-platform-e2e": {
       "tags": [],
-      "implicitDependencies": ["geeek-platform"]
+      "implicitDependencies": ["geek-platform"]
     },
-    "api": {
+    "geek-platform-api": {
       "tags": []
     },
     "api-interfaces": {

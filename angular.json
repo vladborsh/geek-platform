@@ -1,39 +1,39 @@
 {
   "version": 1,
   "projects": {
-    "geeek-platform": {
+    "geek-platform": {
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
         }
       },
-      "root": "apps/geeek-platform",
-      "sourceRoot": "apps/geeek-platform/src",
+      "root": "apps/geek-platform",
+      "sourceRoot": "apps/geek-platform/src",
       "prefix": "geek-platform",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/geeek-platform",
-            "index": "apps/geeek-platform/src/index.html",
-            "main": "apps/geeek-platform/src/main.ts",
-            "polyfills": "apps/geeek-platform/src/polyfills.ts",
-            "tsConfig": "apps/geeek-platform/tsconfig.app.json",
+            "outputPath": "dist/apps/geek-platform",
+            "index": "apps/geek-platform/src/index.html",
+            "main": "apps/geek-platform/src/main.ts",
+            "polyfills": "apps/geek-platform/src/polyfills.ts",
+            "tsConfig": "apps/geek-platform/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "apps/geeek-platform/src/favicon.ico",
-              "apps/geeek-platform/src/assets"
+              "apps/geek-platform/src/favicon.ico",
+              "apps/geek-platform/src/assets"
             ],
-            "styles": ["apps/geeek-platform/src/styles.scss"],
+            "styles": ["apps/geek-platform/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/geeek-platform/src/environments/environment.ts",
-                  "with": "apps/geeek-platform/src/environments/environment.prod.ts"
+                  "replace": "apps/geek-platform/src/environments/environment.ts",
+                  "with": "apps/geek-platform/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -62,83 +62,83 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "geeek-platform:build",
-            "proxyConfig": "apps/geeek-platform/proxy.conf.json"
+            "browserTarget": "geek-platform:build",
+            "proxyConfig": "apps/geek-platform/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "geeek-platform:build:production"
+              "browserTarget": "geek-platform:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "geeek-platform:build"
+            "browserTarget": "geek-platform:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/geeek-platform/tsconfig.app.json",
-              "apps/geeek-platform/tsconfig.spec.json"
+              "apps/geek-platform/tsconfig.app.json",
+              "apps/geek-platform/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/geeek-platform/**/*"]
+            "exclude": ["**/node_modules/**", "!apps/geek-platform/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/geeek-platform/jest.config.js",
-            "tsConfig": "apps/geeek-platform/tsconfig.spec.json",
+            "jestConfig": "apps/geek-platform/jest.config.js",
+            "tsConfig": "apps/geek-platform/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "apps/geeek-platform/src/test-setup.ts"
+            "setupFile": "apps/geek-platform/src/test-setup.ts"
           }
         }
       }
     },
-    "geeek-platform-e2e": {
-      "root": "apps/geeek-platform-e2e",
-      "sourceRoot": "apps/geeek-platform-e2e/src",
+    "geek-platform-e2e": {
+      "root": "apps/geek-platform-e2e",
+      "sourceRoot": "apps/geek-platform-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/geeek-platform-e2e/cypress.json",
-            "tsConfig": "apps/geeek-platform-e2e/tsconfig.e2e.json",
-            "devServerTarget": "geeek-platform:serve"
+            "cypressConfig": "apps/geek-platform-e2e/cypress.json",
+            "tsConfig": "apps/geek-platform-e2e/tsconfig.e2e.json",
+            "devServerTarget": "geek-platform:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "geeek-platform:serve:production"
+              "devServerTarget": "geek-platform:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/geeek-platform-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/geeek-platform-e2e/**/*"]
+            "tsConfig": ["apps/geek-platform-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/geek-platform-e2e/**/*"]
           }
         }
       }
     },
-    "api": {
-      "root": "apps/api",
-      "sourceRoot": "apps/api/src",
+    "geek-platform-api": {
+      "root": "apps/geek-platform-api",
+      "sourceRoot": "apps/geek-platform-api/src",
       "projectType": "application",
-      "prefix": "api",
+      "prefix": "geek-platform-api",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/apps/api",
-            "main": "apps/api/src/main.ts",
-            "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "outputPath": "dist/apps/geek-platform-api",
+            "main": "apps/geek-platform-api/src/main.ts",
+            "tsConfig": "apps/geek-platform-api/tsconfig.app.json",
+            "assets": ["apps/geek-platform-api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -147,8 +147,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/api/src/environments/environment.ts",
-                  "with": "apps/api/src/environments/environment.prod.ts"
+                  "replace": "apps/geek-platform-api/src/environments/environment.ts",
+                  "with": "apps/geek-platform-api/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -157,24 +157,24 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "api:build"
+            "buildTarget": "geek-platform-api:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/api/tsconfig.app.json",
-              "apps/api/tsconfig.spec.json"
+              "apps/geek-platform-api/tsconfig.app.json",
+              "apps/geek-platform-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/api/**/*"]
+            "exclude": ["**/node_modules/**", "!apps/geek-platform-api/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/api/jest.config.js",
-            "tsConfig": "apps/api/tsconfig.spec.json",
+            "jestConfig": "apps/geek-platform-api/jest.config.js",
+            "tsConfig": "apps/geek-platform-api/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -253,5 +253,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "geeek-platform"
+  "defaultProject": "geek-platform"
 }

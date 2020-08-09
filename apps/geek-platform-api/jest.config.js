@@ -1,10 +1,10 @@
 module.exports = {
-  name: 'api',
+  name: 'geek-platform-api',
   preset: '../../jest.config.js',
   globals: {
     'ts-jest': {
       tsConfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  coverageDirectory: '../../coverage/apps/api',
+  coverageDirectory: '../../coverage/apps/geek-platform-api',
 };

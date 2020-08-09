@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'geeek-platform',
+  name: 'geek-platform',
   preset: '../../jest.config.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -12,7 +12,7 @@ module.exports = {
       ],
     },
   },
-  coverageDirectory: '../../coverage/apps/geeek-platform',
+  coverageDirectory: '../../coverage/apps/geek-platform',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',
