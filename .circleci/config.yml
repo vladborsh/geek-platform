@@ -2,6 +2,13 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
 workflows:
-  node-tests:
+  deploy:
     jobs:
-      - node/test
+      - run:
+        name: Build and push Docker image to Heroku
+        command: |
+          sudo curl https://cli-assets.heroku.com/install.sh | sh
+          HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+          HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a geek-platform web
+          HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a geek-platform web
+
