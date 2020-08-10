@@ -1,14 +1,82 @@
 version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-workflows:
+jobs:
+  npm:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run: npm install
+      - save_cache:
+          key: repo-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - .
+  lint:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - restore_cache:
+          keys:
+            - repo-{{ .Branch }}-{{ .Revision }}
+            - repo-{{ .Branch }}
+            - repo-
+      - run: npm run app:lint
+  test:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - restore_cache:
+          keys:
+            - repo-{{ .Branch }}-{{ .Revision }}
+            - repo-{{ .Branch }}
+            - repo-
+      - run: npm run app:test
+  build:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - restore_cache:
+          keys:
+            - repo-{{ .Branch }}-{{ .Revision }}
+            - repo-{{ .Branch }}
+            - repo-
+      - run: npm run app:build
+      - save_cache:
+          key: repo-build-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - .
   deploy:
-    jobs:
+    machine: true
+    steps:
+      - restore_cache:
+          keys:
+            - repo-build-{{ .Branch }}-{{ .Revision }}
+            - repo-build-{{ .Branch }}
+            - repo-build-
       - run:
-        name: Build and push Docker image to Heroku
-        command: |
-          sudo curl https://cli-assets.heroku.com/install.sh | sh
-          HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
-          HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a geek-platform web
-          HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a geek-platform web
-
+          name: heroku push
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a geek-platform web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a geek-platform web
+workflows:
+  version: 2
+  ci:
+    jobs:
+      - npm
+      - lint:
+          requires:
+            - npm
+      - test:
+          requires:
+            - npm
+      - build:
+          requires:
+            - lint
+            - test
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

@@ -13,8 +13,6 @@ RUN cd /tmp && npm install --production=true
 RUN rm -rf tmp/node_modules/@angular
 RUN rm -rf tmp/node_modules/typescript
 RUN rm -rf tmp/node_modules/@angular-devkit
-RUN rm -rf tmp/node_modules/@nestjs
-RUN rm -rf tmp/node_modules/rxjs
 RUN rm -rf tmp/node_modules/prettier
 RUN rm -rf tmp/node_modules/cypress
 RUN rm -rf tmp/node_modules/@schematics
@@ -32,7 +30,6 @@ RUN rm -rf tmp/node_modules/@jest
 RUN rm -rf tmp/node_modules/zone.js
 RUN rm -rf tmp/node_modules/tslint
 RUN rm -rf tmp/node_modules/csso
-RUN rm -rf tmp/node_modules/es5-ext
 RUN rm -rf tmp/node_modules/date-fns
 RUN rm -rf tmp/node_modules/caniuse-lite
 RUN rm -rf tmp/node_modules/es-abstract
