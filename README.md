@@ -6,6 +6,33 @@ This project was generated using [Nx](https://nx.dev).
 
 🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
 
+
+## Code scaffolding
+
+For front
+```bash
+ng g c components/task-item --changeDetection=OnPush --styleext=less --project=geek-platform
+ng g s services/dumb-data --flat=false --project=geek-platform
+```
+
+For back (Nest.js)
+```bash
+ng g @nestjs/schematics:module moduleName --path app --source-root apps/geek-platform-api/src
+ng g @nestjs/schematics:controller controllerName --path app/moduleName  --source-root apps/geek-platform-api/src
+ng g @nestjs/schematics:service serviceName --path app/moduleName --source-root apps/geek-platform-api/src
+ng g @nestjs/schematics:class className/className.entity --path app/moduleName --source-root apps/geek-platform-api/src --spec
+ng g @nestjs/schematics:gateway gatewayName --path app/socket/gatewayName  --source-root apps/geek-platform-api/src
+```
+
+Custom schematics
+```bash
+# Install
+npm run schematic:install
+
+# Generate entity feature
+ng g platform-schematic:entity-feature --name banana-name
+```
+
 ## Quick Start & Documentation
 
 [Nx Documentation](https://nx.dev/angular)
