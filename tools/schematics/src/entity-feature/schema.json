@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "InternSchematicsEntityFeature",
+  "title": "EntityFeature",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "The name of entity feature",
+      "type": "string",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}
