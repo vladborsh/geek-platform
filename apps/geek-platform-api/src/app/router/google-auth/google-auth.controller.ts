@@ -1,13 +1,11 @@
 import { Controller, Get, UseGuards, Req, Res } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
-@Controller('api/google')
+@Controller('google')
 export class GoogleAuthController {
   @Get()
   @UseGuards(AuthGuard('google'))
-  public googleLogin(): string {
-    return 'privet';
-  }
+  public googleLogin(): void {}
 
   @Get('callback')
   @UseGuards(AuthGuard('google'))
@@ -17,9 +15,9 @@ export class GoogleAuthController {
     res.cookie('sessionId', token, { httpOnly: true });
 
     if (token) {
-      res.redirect(`${process.env.APP_URL}/login?authorized=true&payload=${JSON.stringify(req.user)}`);
+      res.redirect(`${process.env.APP_URL}?authorized=true&payload=${JSON.stringify(req.user)}`);
     } else {
-      res.redirect(`${process.env.APP_URL}/login?authorized=false`);
+      res.redirect(`${process.env.APP_URL}?authorized=false`);
     }
   }
 }

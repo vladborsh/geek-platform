@@ -22,7 +22,6 @@ RUN rm -rf tmp/node_modules/core-js
 RUN rm -rf tmp/node_modules/node-notifier
 RUN rm -rf tmp/node_modules/jsdom
 RUN rm -rf tmp/node_modules/moment
-RUN rm -rf tmp/node_modules/lodash
 RUN rm -rf tmp/node_modules/less
 RUN rm -rf tmp/node_modules/eslint
 RUN rm -rf tmp/node_modules/sass

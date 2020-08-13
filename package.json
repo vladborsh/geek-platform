@@ -24,7 +24,7 @@
     "app:build": "npm run geek-platform:build && npm run geek-platform-api:build",
     "app:run": "NODE_ENV=production && node dist/apps/geek-platform-api/main.js",
     "app:docker-build": "docker image build -t geek-platform -f Dockerfile .",
-    "app:docker-run": "docker run --rm -d -e PORT='4001' -p 4001:4001/tcp geek-platform:latest",
+    "app:docker-run": "docker run --rm -d --env-file .env.docker -p 4001:4001/tcp geek-platform:latest",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",

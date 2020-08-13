@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@geek-platform/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@geek-platform/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@geek-platform/ui": ["libs/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

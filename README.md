@@ -2,8 +2,6 @@
 
 This project was generated using [Nx](https://nx.dev).
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
-
 🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
 
 
@@ -11,7 +9,7 @@ This project was generated using [Nx](https://nx.dev).
 
 For front
 ```bash
-ng g c components/task-item --changeDetection=OnPush --styleext=less --project=geek-platform
+ng g c components/task-item --changeDetection=OnPush --style=scss --project=geek-platform
 ng g s services/dumb-data --flat=false --project=geek-platform
 ```
 
@@ -31,6 +29,11 @@ npm run schematic:install
 
 # Generate entity feature
 ng g platform-schematic:entity-feature --name banana-name
+```
+
+Nx schematics
+```
+ng g @nrwl/angular:lib lib-name
 ```
 
 ## Quick Start & Documentation

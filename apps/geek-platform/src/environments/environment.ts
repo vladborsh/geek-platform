@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  loginWithGoogleRedirect: 'http://localhost:3333/',
 };
 
 /*
