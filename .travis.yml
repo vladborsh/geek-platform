@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - 10.15.1
+install:
+  - npm ci
+jobs:
+  include:
+    - stage: test
+      script: 
+        - npm run app:lint
+        - npm run app:test
+        - npm run app:build
