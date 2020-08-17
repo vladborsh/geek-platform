@@ -7,12 +7,14 @@ jobs:
       - run:
           name: nvm
           command: |
-            set +e
-            export NVM_DIR="/opt/circleci/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install 10.15.2
-            nvm use 10.15.2
-      - run: npm ci
+            set +e             
+            touch $BASH_ENV  
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
+            echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
+            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
+            echo 'nvm install v10.15.1' >> $BASH_ENV
+            echo 'nvm alias default v10.15.1' >> $BASH_ENV
+      - run: npm i
       - run: npm run app:lint
       - run: npm run app:test
       - run: npm run app:build
