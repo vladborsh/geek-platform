@@ -6,8 +6,4 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  isExpand = false;
-
-  toggleExpand = () => this.isExpand = !this.isExpand
-}
+export class AppComponent {}
