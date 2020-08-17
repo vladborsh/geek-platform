@@ -1,3 +1,3 @@
 export class Identifiable {
-  _id?: string;
+  _id: string;
 }
