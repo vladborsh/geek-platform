@@ -1,5 +1,16 @@
 <div style="text-align: center;">
   <h1>Welcome to geek-platform!</h1>
-  
+
   <app-login-form></app-login-form>
+  <button (click)="toggleExpand()">Toggle Expand</button>
+  <ui-expand [isHidden]="isExpand">
+    <p>
+      Conent1
+    </p>
+  </ui-expand>
+  <ui-expand [isHidden]="isExpand">
+    <p>
+      Content2
+    </p>
+  </ui-expand>
 </div>
