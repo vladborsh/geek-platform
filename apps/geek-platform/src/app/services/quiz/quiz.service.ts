@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 import { Quiz } from '../../types/quiz';
 import { AuthService } from '../auth/auth.service';
@@ -27,26 +27,19 @@ export class QuizService {
 
     if(isTokenOutDate || !token) {
       this.loginWithGoogle();
-      return;
+      return ;
     }
 
-
     return this.http.get<Quiz[]>(this.quizUrl, this.httpOptions).pipe(
-      tap((_) => console.log('fetched quizzes')),
-      catchError(this.handleError<Quiz[]>('getQuizzes', []))
+      catchError( (error: any): Observable<Quiz[]> => {
+        console.error(error);
+        return of([] as Quiz[]);
+      })
     );
   }
 
-  public loginWithGoogle(): void {
+  private loginWithGoogle(): void {
     window.location.replace(`${ environment.loginWithGoogleRedirect || window.location.href }api/google`);
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      console.log(`${operation} failed: ${error.message}`);
-
-      return of(result as T);
-    };
-  }
 }
