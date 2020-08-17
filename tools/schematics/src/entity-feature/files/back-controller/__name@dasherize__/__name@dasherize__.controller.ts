@@ -4,7 +4,7 @@ import { <%= classify(name) %>Dto, AuthDataDto } from '@geek-platform/api-interf
 import { Observable } from 'rxjs';
 import { <%= classify(name) %>DomainService } from '../../domain/<%= dasherize(name) %>-domain/<%= dasherize(name) %>-domain.service';
 
-@Controller('api/<%= underscore(name) %>')
+@Controller('<%= underscore(name) %>')
 export class <%= classify(name) %>Controller {
   constructor(private <%= camelize(name) %>DomainService: <%= classify(name) %>DomainService) {}
 

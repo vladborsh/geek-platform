@@ -1,45 +1,17 @@
 version: 2.1
 jobs:
-  npm:
+  integration:
     docker:
-      - image: circleci/node:12
+      - image: circleci/node:10.15.1
     steps:
       - checkout
-      - run: npm install
-      - save_cache:
-          key: repo-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - .
-  lint:
-    docker:
-      - image: circleci/node:12
-    steps:
-      - restore_cache:
-          keys:
-            - repo-{{ .Branch }}-{{ .Revision }}
-            - repo-{{ .Branch }}
-            - repo-
+      - run: npm ci
       - run: npm run app:lint
-  test:
-    docker:
-      - image: circleci/node:12
-    steps:
-      - restore_cache:
-          keys:
-            - repo-{{ .Branch }}-{{ .Revision }}
-            - repo-{{ .Branch }}
-            - repo-
       - run: npm run app:test
-  build:
-    docker:
-      - image: circleci/node:12
-    steps:
-      - restore_cache:
-          keys:
-            - repo-{{ .Branch }}-{{ .Revision }}
-            - repo-{{ .Branch }}
-            - repo-
       - run: npm run app:build
+      - run:
+          command: cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes
+          when: always
       - save_cache:
           key: repo-build-{{ .Branch }}-{{ .Revision }}
           paths:
@@ -48,10 +20,7 @@ jobs:
     machine: true
     steps:
       - restore_cache:
-          keys:
-            - repo-build-{{ .Branch }}-{{ .Revision }}
-            - repo-build-{{ .Branch }}
-            - repo-build-
+          key: repo-build-{{ .Branch }}-{{ .Revision }}
       - run:
           name: heroku push
           command: |
@@ -61,22 +30,12 @@ jobs:
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a geek-platform web
 workflows:
   version: 2
-  ci:
+  continuous-integration:
     jobs:
-      - npm
-      - lint:
-          requires:
-            - npm
-      - test:
-          requires:
-            - npm
-      - build:
-          requires:
-            - lint
-            - test
+      - integration
       - deploy:
           requires:
-            - build
+            - integration
           filters:
             branches:
               only: master
