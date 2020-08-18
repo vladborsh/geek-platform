@@ -2,13 +2,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ExpandModule } from '@geek-platform/ui';
 
 import { QuizService } from './services/quiz/quiz.service';
 import { AuthInterceptor } from './api/interceptors/auth';
 import { AppComponent } from './app.component';
-import { LoginFormModule } from './components/login-form/login-form.module';
 import { AppRoutingModule } from './components/app-routing/app-routing.module';
+import { LoginPageModule } from './components/login-page/login-page.module';
+import { HomePageModule } from './components/home-page/home-page.module';
+import { WelcomePageModule } from './components/welcome-page/welcome-page.module';
+import { QuizePageModule } from './components/quize-page/quize-page.module';
+import { EditorPageModule } from './components/editor-page/editor-page.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,8 +20,11 @@ import { AppRoutingModule } from './components/app-routing/app-routing.module';
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot([]),
-    LoginFormModule,
-    ExpandModule,
+    LoginPageModule,
+    HomePageModule,
+    WelcomePageModule,
+    QuizePageModule,
+    EditorPageModule,
   ],
   providers: [
     QuizService,

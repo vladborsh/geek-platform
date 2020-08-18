@@ -1,13 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginPageModule } from '../login-page/login-page.module';
-import { HomePageModule } from '../home-page/home-page.module';
+import { LoginPageComponent } from '../login-page/login-page.component';
+import { HomePageComponent } from '../home-page/home-page.component';
+import { WelcomePageComponent } from '../welcome-page/welcome-page.component';
+import { QuizePageComponent } from '../quize-page/quize-page.component';
+import { EditorPageComponent } from '../editor-page/editor-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home-page', pathMatch: 'full' },
-  { path: 'login-page', component: LoginPageModule },
-  { path: 'home-page', component: HomePageModule },
+  { path: '', component: LoginPageComponent },
+  {
+    path: 'home',
+    component: HomePageComponent,
+    children: [
+      {
+        path: '',
+        component: WelcomePageComponent,
+      },
+      {
+        path: 'quize',
+        component: QuizePageComponent,
+      },
+      {
+        path: 'editor',
+        component: EditorPageComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
