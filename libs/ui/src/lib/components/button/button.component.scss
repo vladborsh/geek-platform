@@ -3,9 +3,9 @@
 }
 
 .button {
-  background-color: #4CAF50; /* Green */
+  background-color: var(--button);
   border: none;
-  color: white;
+  color: var(--button-text);
   padding: 0.6rem 1rem;
   text-align: center;
   text-decoration: none;
@@ -13,4 +13,10 @@
   font-size: 1rem;
   cursor: pointer;
   outline: none;
+  border-radius: var(--radius);
+  transition: var(--bg-transition);
+
+  &:hover {
+    background: var(--button-hov);
+  }
 }

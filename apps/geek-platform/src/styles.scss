@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --gray0: rgb(241, 241, 241);
+  --gray1: #dddddd;
+  --gray2: #d1d1d1;
+  --gray3: #cfcece;
+  --gray4: #9e9e9e;
+  --gray5: #757575;
+  --gray6: #383838;
+  --green: #4caf50;
+  --green2: #4ec051;
+
+  --space-atom: 4px;
+  --radius: var(--space-atom);
+  --bg-transition: background 300ms ease-in-out;
+}
+
+.light {
+  --bg: var(--gray0);
+  --primary: var(--green);
+  --primary2: var(--green2);
+  --text: var(--gray6);
+  --text-light: var(--gray5);
+  --button: var(--primary);
+  --button-hov: var(--primary2);
+  --button-text: var(--gray0);
+  --radio-button: var(--gray3);
+  --radio-button-hov: var(--gray4);
+  --input-border: var(--gray3);
+  --input-fcs-border: var(--primary);
+}
+
+body {
+  color: var(--text);
+  background: var(--bg);
+  font-size: 15px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}

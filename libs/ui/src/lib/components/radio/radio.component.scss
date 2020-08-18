@@ -17,7 +17,7 @@
   text-align: left;
 
   &:hover input ~ .checkmark {
-    background-color: #ccc;
+    background-color: var(--radio-button-hov);
   }
 
   input {
@@ -26,7 +26,7 @@
     cursor: pointer;
     
     &:checked ~ .checkmark {
-      background-color: #4CAF50;
+      background-color: var(--button);
 
       &:after {
         display: block;
@@ -41,7 +41,7 @@
       width: 9px;
       height: 9px;
       border-radius: 50%;
-      background: white;
+      background: var(--button-text);
     }
   }
 }
@@ -52,7 +52,7 @@
   left: 0;
   height: 21px;
   width: 21px;
-  background-color: #eee;
+  background-color: var(--radio-button);
   border-radius: 50%;
 
   &:after {

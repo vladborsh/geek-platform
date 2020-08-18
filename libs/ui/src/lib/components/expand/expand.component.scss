@@ -1,7 +1,6 @@
 .expand {
   margin-top: 20px;
   transition: .2s;
-  border: 1px solid black;
   max-height: 100px;
   padding: 10px;
   overflow: auto;
@@ -10,6 +9,5 @@
 .hidden {
   max-height: 0;
   padding: 0;
-  border:0;
   transition: max-height .5s, padding .5s;
 }
