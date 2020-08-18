@@ -167,12 +167,7 @@
     "class-name": false,
     "no-unnecessary-class": false,
     "directive-selector": [true, false, "app", "camelCase"],
-    "component-selector": [
-      true,
-      "element",
-      ["app", "auth", "communication", "shared", "telephony"],
-      "kebab-case"
-    ],
+    "component-selector": false,
     "no-inputs-metadata-property": true,
     "no-outputs-metadata-property": true,
     "no-host-metadata-property": true,
