@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APP_BASE_HREF } from '@angular/common';
+import { ButtonModule } from '@geek-platform/ui';
 
 import { HomePageComponent } from './home-page.component';
 import { HomePageModule } from './home-page.module';
-import { APP_BASE_HREF } from '@angular/common';
 
 describe('HomePageComponent', () => {
   let component: HomePageComponent;
@@ -11,7 +12,7 @@ describe('HomePageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HomePageModule, RouterTestingModule],
+      imports: [HomePageModule, RouterTestingModule, ButtonModule],
       providers: [{ provide: APP_BASE_HREF, useValue: '/home' }],
     }).compileComponents();
   }));

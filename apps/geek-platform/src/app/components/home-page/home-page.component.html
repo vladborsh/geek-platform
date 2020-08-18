@@ -1,9 +1,11 @@
 <p>home-page works!</p>
 <nav>
   <ul>
-    <li><a routerLink="/home">Welcome</a></li>
-    <li><a routerLink="/home/quize">Quize</a></li>
-    <li><a routerLink="/home/editor">Editor</a></li>
+    <ui-button (click)="goToPage('/home')" label="Welcome" class="button"></ui-button>
+    <ui-button (click)="goToPage('/home/quize')" label="Quize" class="button"></ui-button>
+    <ui-button (click)="goToPage('/home/editor')" label="Editor" class="button"></ui-button>
+
+    <ui-button (click)="goBack()" label="Back" class="button"></ui-button>
   </ul>
 </nav>
 

@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-quize-page',
@@ -7,5 +8,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuizePageComponent implements OnInit {
+  constructor(private location: Location) {}
   ngOnInit(): void {}
+
+  public goBack(): void {
+    this.location.back();
+  }
 }
