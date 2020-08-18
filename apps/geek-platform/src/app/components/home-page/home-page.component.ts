@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -8,9 +8,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./home-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent {
   constructor(private router: Router, private location: Location) {}
-  ngOnInit(): void {}
 
   public goToPage(path: string): void {
     this.router.navigate([path]);

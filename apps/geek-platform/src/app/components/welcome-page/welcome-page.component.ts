@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -7,9 +7,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./welcome-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WelcomePageComponent implements OnInit {
+export class WelcomePageComponent {
   constructor(private location: Location) {}
-  ngOnInit(): void {}
 
   public goBack(): void {
     this.location.back();

@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_BASE_HREF } from '@angular/common';
-import { ButtonModule } from '@geek-platform/ui';
 
 import { HomePageComponent } from './home-page.component';
 import { HomePageModule } from './home-page.module';
@@ -12,7 +11,7 @@ describe('HomePageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HomePageModule, RouterTestingModule, ButtonModule],
+      imports: [HomePageModule, RouterTestingModule],
       providers: [{ provide: APP_BASE_HREF, useValue: '/home' }],
     }).compileComponents();
   }));

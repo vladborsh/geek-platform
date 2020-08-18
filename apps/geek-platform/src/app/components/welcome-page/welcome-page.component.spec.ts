@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ButtonModule } from '@geek-platform/ui';
 import { WelcomePageComponent } from './welcome-page.component';
 import { WelcomePageModule } from './welcome-page.module';
 
@@ -9,7 +8,7 @@ describe('WelcomePageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [WelcomePageModule, ButtonModule],
+      imports: [WelcomePageModule],
     }).compileComponents();
   }));
 
