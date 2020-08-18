@@ -6,12 +6,14 @@ import { HomePageComponent } from '../home-page/home-page.component';
 import { WelcomePageComponent } from '../welcome-page/welcome-page.component';
 import { QuizePageComponent } from '../quize-page/quize-page.component';
 import { EditorPageComponent } from '../editor-page/editor-page.component';
+import { HomeGuard } from '../../route/guards/home-guard';
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
   {
     path: 'home',
     component: HomePageComponent,
+    canActivate: [HomeGuard],
     children: [
       {
         path: '',

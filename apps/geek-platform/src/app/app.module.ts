@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { QuizService } from './services/quiz/quiz.service';
+import { HomeGuard } from './route/guards/home-guard';
 import { AuthInterceptor } from './api/interceptors/auth';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './components/app-routing/app-routing.module';
@@ -27,7 +27,7 @@ import { EditorPageModule } from './components/editor-page/editor-page.module';
     EditorPageModule,
   ],
   providers: [
-    QuizService,
+    HomeGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
