@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import {QuizDto} from '@geek-platform/api-interfaces';
 
-import { Quiz } from '../../types/quiz';
 import { AuthService } from '../auth/auth.service';
 import { environment } from '../../../environments/environment';
 
@@ -20,7 +20,7 @@ export class QuizService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  getQuizzes(): Observable<Quiz[]> {
+  getQuizzes(): Observable<QuizDto[]> {
     const dayInMs = 8.64e7;
     const {token, lastSignInTimestamp} = this.authService;
     const isTokenOutDate = Date.now() - lastSignInTimestamp > dayInMs;
@@ -30,10 +30,10 @@ export class QuizService {
       return ;
     }
 
-    return this.http.get<Quiz[]>(this.quizUrl, this.httpOptions).pipe(
-      catchError( (error: any): Observable<Quiz[]> => {
+    return this.http.get<QuizDto[]>(this.quizUrl, this.httpOptions).pipe(
+      catchError( (error: any): Observable<QuizDto[]> => {
         console.error(error);
-        return of([] as Quiz[]);
+        return of([] as QuizDto[]);
       })
     );
   }
