@@ -28,7 +28,10 @@ Custom schematics
 npm run schematic:install
 
 # Generate entity feature
-ng g platform-schematic:entity-feature --name banana-name
+ng g platform-schematic:entity-feature banana-name
+
+# Generate entity SCAM module (project in optional param)
+ng g platform-schematic:scam banana-name --project ui
 ```
 
 Nx schematics

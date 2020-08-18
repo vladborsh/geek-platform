@@ -5,6 +5,11 @@
       "description": "Entity feature",
       "factory": "./entity-feature/index#main",
       "schema": "./entity-feature/schema.json"
+    },
+    "scam": {
+      "description": "SCAM Module",
+      "factory": "./scam/index#main",
+      "schema": "./scam/schema.json"
     }
   }
 }

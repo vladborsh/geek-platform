@@ -6,12 +6,16 @@
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine src/**/*_spec.js",
     "build:watch": "tsc -p tsconfig.json --watch",
-    "copy:schemas": "shx cp src/*/schema.json ./dist/platform-schematic/schematics/entity-feature",
-    "copy:files": "shx cp -r src/*/files ./dist/platform-schematic/schematics/entity-feature/files",
+    "entity-feature:copy:schemas": "shx cp src/entity-feature/schema.json ./dist/platform-schematic/schematics/entity-feature",
+    "entity-feature:copy:files": "shx cp -r src/entity-feature/files ./dist/platform-schematic/schematics/entity-feature/files",
+    "entity-feature:postbuild": "npm run entity-feature:copy:schemas && npm run entity-feature:copy:files",
+    "scam:copy:schemas": "shx cp src/scam/schema.json ./dist/platform-schematic/schematics/scam",
+    "scam:copy:files": "shx cp -r src/scam/files ./dist/platform-schematic/schematics/scam/files",
+    "scam:postbuild": "npm run scam:copy:schemas && npm run scam:copy:files",
     "copy:collection": "shx cp src/collection.json dist/platform-schematic/schematics/collection.json",
     "copy:package": "shx cp package.json dist/platform-schematic",
     "prebuild": "shx rm -rf dist",
-    "postbuild": "npm run copy:schemas && npm run copy:files && npm run copy:collection && npm run copy:package"
+    "postbuild": "npm run entity-feature:postbuild && npm run scam:postbuild && npm run copy:collection && npm run copy:package"
   },
   "keywords": [
     "schematics"
