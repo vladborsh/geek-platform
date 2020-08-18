@@ -11,6 +11,6 @@ import { ButtonModule } from '@geek-platform/ui';
     CommonModule,
     ButtonModule,
   ],
-  exports: [LoginFormComponent]
+  exports: [LoginFormComponent],
 })
 export class LoginFormModule { }

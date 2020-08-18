@@ -1,9 +1,9 @@
 export function LocalStorage(): (target: Object, propertyName: string) => void {
-  function setInLocalStorage(key: string, value: string) {
-    return localStorage.setItem(key, JSON.stringify(value));
+  function setInLocalStorage(key: string, value: string): void {
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
-  function getFromLocalStorage(key: string) {
+  function getFromLocalStorage(key: string): any {
     const item = localStorage.getItem(key);
 
     return item ? JSON.parse(item) : '';

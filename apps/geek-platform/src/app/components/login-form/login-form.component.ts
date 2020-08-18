@@ -10,32 +10,37 @@ import { AuthDataDto } from '@geek-platform/api-interfaces';
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent implements OnInit {
-
   constructor(
     private router: Router,
     private authService: AuthService,
-    private activatedRoute: ActivatedRoute
-  ) { }
+    private activatedRoute: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
     this.checkRouteForAuth();
   }
 
   public loginWithGoogle(): void {
-    window.location.replace(`${ environment.loginWithGoogleRedirect || window.location.href }api/google`);
+    window.location.replace(
+      `${environment.loginWithGoogleRedirect || window.location.href}api/google`,
+    );
   }
 
   public checkRouteForAuth(): void {
-    this.activatedRoute
-      .queryParamMap
+    this.activatedRoute.queryParamMap
       .pipe(
-        filter((params: ParamMap) => params && params.has('authorized') && params.get('authorized') === 'true'),
+        filter(
+          (params: ParamMap) =>
+            params &&
+            params.has('authorized') &&
+            params.get('authorized') === 'true',
+        ),
         map((params: ParamMap) => JSON.parse(params.get('payload'))),
-        catchError(error => {
-          console.warn(`Invalid auth data: ${error}`);
+        catchError((error: Error) => {
+          console.warn(`Invalid auth data: ${String(error)}`);
 
           return of(null);
         }),

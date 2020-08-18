@@ -10,7 +10,7 @@ describe('GoogleStrategyService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         GoogleStrategyService,
-        { provide: AuthService, useFactory: () => instance(mock(AuthService)) }
+        { provide: AuthService, useFactory: () => instance(mock(AuthService)) },
       ],
     }).compile();
 

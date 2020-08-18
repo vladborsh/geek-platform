@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { QuizService, QuizData } from '../../data-access/quiz/quiz.service';
 import { QuizDto, Update, RoleType, AuthDataDto } from '@geek-platform/api-interfaces';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { PermissionModel, OperationType, RecordsFilterType, FieldVisibilityMode, validateOperationByPermission } from '../../helpers/permission.helpers';
 

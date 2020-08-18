@@ -3,7 +3,7 @@ import { LocalStorage } from '../../decorators/local-storage.decorator';
 import { AuthDataDto } from '@geek-platform/api-interfaces';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   @LocalStorage() public user: AuthDataDto;

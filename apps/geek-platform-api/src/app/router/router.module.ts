@@ -12,6 +12,6 @@ import { QuizDomainModule } from '../domain/quiz-domain/quiz-domain.module';
   controllers: [
     GoogleAuthController,
     QuizController,
-  ]
+  ],
 })
 export class RouterModule {}

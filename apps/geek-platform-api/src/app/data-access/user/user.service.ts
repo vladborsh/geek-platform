@@ -7,6 +7,8 @@ import { query } from '../../helpers/query.helper';
 import { Observable, from } from 'rxjs';
 import { compose } from 'lodash/fp';
 
+// tslint:disable: await-promise
+
 export type UserData = Document & Exclude<UserDto, '_id'>;
 
 type UserQuery = DocumentQuery<UserData[], UserData>;
