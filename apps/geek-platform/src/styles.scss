@@ -13,10 +13,8 @@
   --radius: var(--space-atom);
   --bg-transition: background 300ms ease-in-out;
 
-  --nav-bg: var(--gray6);
-  --nav-bg-selected: var(--green2);
-  --nav-bg-hovered: var(--gray2);
-  --nav-header-height: 80px;
+  --nav-header-space: 80px;
+  --nav-header-height: calc(var(--space-atom) * 8 + 1rem);
 }
 
 .light {
@@ -25,6 +23,7 @@
   --primary2: var(--green2);
   --text: var(--gray6);
   --text-light: var(--gray5);
+
   --button: var(--primary);
   --button-hov: var(--primary2);
   --button-text: var(--gray0);
@@ -32,6 +31,11 @@
   --radio-button-hov: var(--gray4);
   --input-border: var(--gray3);
   --input-fcs-border: var(--primary);
+
+  --nav-bg: var(--gray6);
+  --nav-bg-selected: var(--green2);
+  --nav-bg-hovered: var(--gray2);
+
   --separator: var(--gray3)
 }
 

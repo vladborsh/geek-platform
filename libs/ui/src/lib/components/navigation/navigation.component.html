@@ -3,11 +3,28 @@
     <li *ngFor="let item of navList">
       <a routerLink="{{item.route}}"
          routerLinkActive="active"
-         [routerLinkActiveOptions]="{exact: true}"
-      >
+         [routerLinkActiveOptions]="{exact: true}">
         {{item.label}}
       </a>
     </li>
   </ul>
+
+  <div class="mobile-nav">
+    <div
+      [ngStyle]="{'display': mobileNavDisplay$ | async }"
+      (click)="mobileNavSelected()"
+      class="mobile-nav-links">
+      <a
+        *ngFor="let item of navList" 
+        [routerLinkActiveOptions]="{exact: true}"
+        routerLink="{{item.route}}"
+        routerLinkActive="active">
+        {{item.label}}
+      </a>
+    </div>
+    <a class="icon" (click)="toggleMobileNav()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
 </header>
 

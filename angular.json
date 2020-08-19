@@ -30,7 +30,10 @@
               "apps/geek-platform/src/favicon.ico",
               "apps/geek-platform/src/assets"
             ],
-            "styles": ["apps/geek-platform/src/styles.scss"],
+            "styles": [
+              "apps/geek-platform/src/styles.scss",
+              "node_modules/font-awesome/css/font-awesome.css"
+            ],
             "scripts": []
           },
           "configurations": {
