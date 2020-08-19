@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 header {
   position: fixed;
   top: 0;
@@ -9,7 +13,7 @@ ul {
   display: flex;
   list-style: none;
   background-color: var(--nav-bg);
-  padding: 14px 0;
+  padding: calc(var(--space-atom) * 3.5) 0;
   font-size: 17px;
   margin: 0;
 }
@@ -18,7 +22,7 @@ a {
   color: var(--gray0);
   text-align: center;
   text-decoration: none;
-  padding: 14px 16px;
+  padding: calc(var(--space-atom) * 3.5) calc(var(--space-atom) * 4);
   margin-left: 0;
 }
 

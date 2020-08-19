@@ -1,6 +1,6 @@
 .wrapper {
   & main {
-    margin-top: 80px;
+    margin-top: var(--nav-header-height);
   }
 }
 
