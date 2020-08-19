@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { NavigationInterface } from '@geek-platform/ui';
+import { HOME_NAVIGATION } from '../../config/navigation.config';
 
 @Component({
   selector: 'app-home-page',
@@ -9,13 +9,5 @@ import { Location } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePageComponent {
-  constructor(private router: Router, private location: Location) {}
-
-  public goToPage(path: string): void {
-    this.router.navigate([path]);
-  }
-
-  public goBack(): void {
-    this.location.back();
-  }
+  public navList: NavigationInterface[] = HOME_NAVIGATION;
 }

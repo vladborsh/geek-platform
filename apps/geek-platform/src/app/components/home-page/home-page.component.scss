@@ -1,4 +1,7 @@
-.button {
-  display: inline-block;
-  margin-left: 10px;
+.wrapper {
+  & main {
+    margin-top: var(--nav-header-height);
+  }
 }
+
+

@@ -1,0 +1,37 @@
+:host {
+  display: block;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  background-color: var(--nav-bg);
+  padding: calc(var(--space-atom) * 4) 0;
+  font-size: 17px;
+  margin: 0;
+}
+
+a {
+  color: var(--gray0);
+  text-align: center;
+  text-decoration: none;
+  padding: calc(var(--space-atom) * 4) calc(var(--space-atom) * 4);
+  margin-left: 0;
+}
+
+a:hover {
+  background-color: var(--nav-bg-hovered);
+  color: var(--gray6);
+}
+
+.active {
+  background-color: var(--nav-bg-selected);
+  color: var(--gray0);
+}
