@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  padding-bottom: calc(var(--space-atom) * 2);
+}
+
+.item {
+  padding: calc(var(--space-atom) * 2);
+
+  & + & {
+    border-top: 1px solid var(--separator);
+  }
+}
