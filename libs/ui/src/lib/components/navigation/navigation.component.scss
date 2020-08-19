@@ -13,7 +13,7 @@ ul {
   display: flex;
   list-style: none;
   background-color: var(--nav-bg);
-  padding: calc(var(--space-atom) * 3.5) 0;
+  padding: calc(var(--space-atom) * 4) 0;
   font-size: 17px;
   margin: 0;
 }
@@ -22,7 +22,7 @@ a {
   color: var(--gray0);
   text-align: center;
   text-decoration: none;
-  padding: calc(var(--space-atom) * 3.5) calc(var(--space-atom) * 4);
+  padding: calc(var(--space-atom) * 4) calc(var(--space-atom) * 4);
   margin-left: 0;
 }
 
