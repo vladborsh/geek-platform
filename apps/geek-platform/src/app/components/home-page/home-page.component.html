@@ -1,5 +1,14 @@
-<p>home-page works!</p>
+<div class="wrapper">
+  <header>
+    <ui-navigation [navList]="navList"></ui-navigation>
+  </header>
+  <main>
+    <nav>
+      <a routerLink="/">Login</a>
+      <br/>
+      <a routerLink="/home">Home</a>
+    </nav>
+    <router-outlet></router-outlet>
+  </main>
+</div>
 
-<ui-navigation [navList]="navList"></ui-navigation>
-
-<router-outlet></router-outlet>

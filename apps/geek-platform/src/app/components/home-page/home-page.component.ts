@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NavigationInterface } from '@geek-platform/ui';
-import { Routes } from '../../enums/route.enum';
+import { HOME_NAVIGATION } from '../../config/navigation.config';
 
 @Component({
   selector: 'app-home-page',
@@ -9,18 +9,5 @@ import { Routes } from '../../enums/route.enum';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePageComponent {
-  public navList: NavigationInterface[] = [
-    {
-      label: 'Welcome',
-      route: `/${Routes.HOME}`,
-    },
-    {
-      label: 'Quize',
-      route: `/${Routes.HOME}/${Routes.QUIZE}`,
-    },
-    {
-      label: 'Editor',
-      route: `/${Routes.HOME}/${Routes.EDITOR}`,
-    },
-  ];
+  public navList: NavigationInterface[] = HOME_NAVIGATION;
 }
