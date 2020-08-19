@@ -9,4 +9,6 @@ export * from './lib/components/radio/radio.module';
 export * from './lib/components/radio/radio.component';
 export * from './lib/components/header/header.module';
 export * from './lib/components/header/header.component';
+export * from './lib/components/navigation/navigation.module';
+export * from './lib/components/navigation/navigation.component';
 export * from './lib/enums/ui-sizes.enum';
