@@ -1,3 +1,9 @@
 <ui-card>
-  <p>{{question.actualQuestion}}</p>
+  <ui-header class="header" [size]="headerSize">{{ question.actualQuestion }}</ui-header>
+
+  <div *ngFor="let answer of question.answers">
+    <ui-radio label="{{ answer }}" name="'form-question'" [item]="answer" [ngModel]="selected" (ngModelChange)="onSelected($event)"></ui-radio>
+  </div>
+
+  <ui-button *ngIf="selected" class="btn-submit" label="Submit" (click)="onSubmit()"></ui-button>
 </ui-card>

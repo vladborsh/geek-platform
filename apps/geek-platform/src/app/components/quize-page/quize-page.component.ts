@@ -1,7 +1,5 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { QuestionDto } from '@geek-platform/api-interfaces';
-
-import { QuizService } from '../../services/quiz/quiz.service';
 
 @Component({
   selector: 'app-quize-page',
@@ -9,25 +7,17 @@ import { QuizService } from '../../services/quiz/quiz.service';
   styleUrls: ['./quize-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuizePageComponent implements OnInit {
+export class QuizePageComponent  {
   public questions: QuestionDto[];
 
-  constructor(private quizService: QuizService) {
+  constructor() {
     this.questions = [
       {
-        _id: '',
-        actualQuestion: '',
-        answers: [''],
+        _id: '5f3a22d1475af5f152c01fd7',
+        actualQuestion: 'Do you like JS?',
+        answers: ['Yes', 'No', `I don't know exactly.` ],
         correctAnswer: 0,
       },
     ];
-  }
-
-  ngOnInit(): void {
-    this.getQuestions();
-  }
-
-  private getQuestions(): void {
-    this.quizService.getQuizzes$().subscribe(quizzes => (this.questions = quizzes[0].questions));
   }
 }

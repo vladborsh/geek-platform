@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output } from '@angular/core';
 import { QuestionDto } from '@geek-platform/api-interfaces';
+import { UiSizes } from '@geek-platform/ui';
 
 @Component({
   selector: 'app-question-card',
@@ -9,5 +10,17 @@ import { QuestionDto } from '@geek-platform/api-interfaces';
 })
 export class QuestionCardComponent {
   @Input() question: QuestionDto;
+  public current: string;
+  @Output() selected: string;
+  @Output() submitted: string;
 
+  public headerSize = UiSizes.X_SMALL;
+
+  public onSelected(selectedAnswer: string): void {
+    this.selected = selectedAnswer;
+  }
+
+  public onSubmit(): void {
+    this.submitted = this.selected;
+  }
 }
