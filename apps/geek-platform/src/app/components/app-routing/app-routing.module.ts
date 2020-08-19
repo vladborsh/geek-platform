@@ -20,7 +20,7 @@ const routes: Routes = [
         component: WelcomePageComponent,
       },
       {
-        path: 'quize',
+        path: 'quiz',
         component: QuizePageComponent,
       },
       {

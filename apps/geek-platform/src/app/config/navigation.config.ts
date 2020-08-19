@@ -7,8 +7,8 @@ export const HOME_NAVIGATION: NavigationInterface[] = [
     route: `/${Routes.HOME}`,
   },
   {
-    label: 'Quize',
-    route: `/${Routes.HOME}/${Routes.QUIZE}`,
+    label: 'Quiz',
+    route: `/${Routes.HOME}/${Routes.QUIZ}`,
   },
   {
     label: 'Editor',

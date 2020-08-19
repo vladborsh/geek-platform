@@ -1,10 +1,13 @@
-<ul>
-  <li *ngFor="let item of navList">
-    <a routerLink="{{item.route}}"
-       routerLinkActive="active"
-       [routerLinkActiveOptions]="{exact: true}"
-    >
-      {{item.label}}
-    </a>
-  </li>
-</ul>
+<header>
+  <ul>
+    <li *ngFor="let item of navList">
+      <a routerLink="{{item.route}}"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{exact: true}"
+      >
+        {{item.label}}
+      </a>
+    </li>
+  </ul>
+</header>
+

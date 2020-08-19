@@ -1,13 +1,4 @@
 .wrapper {
-  border: 1px solid black;
-
-  & header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-
   & main {
     margin-top: 80px;
   }
