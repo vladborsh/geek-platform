@@ -11,6 +11,6 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
   ],
-  exports: [InputComponent]
+  exports: [InputComponent],
 })
 export class InputModule { }

@@ -1,0 +1,8 @@
+<ui-input [ngModel]="filter$ | async" (ngModelChange)="onFilterInput($event)"></ui-input>
+
+<div *ngFor="let item of (items$ | async)" class="item">
+    <ng-container
+        [ngTemplateOutlet]="itemTemplate"
+        [ngTemplateOutletContext]="{$implicit: item}">
+    </ng-container>
+</div>
