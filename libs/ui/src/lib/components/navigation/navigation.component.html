@@ -1,1 +1,5 @@
-<p>this is nav bar</p>
+<ul>
+  <li *ngFor="let item of navList">
+    <a routerLink="{{item.route}}">{{item.label}}</a>
+  </li>
+</ul>
