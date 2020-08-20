@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-quize-page',
@@ -7,10 +6,4 @@ import { Location } from '@angular/common';
   styleUrls: ['./quize-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuizePageComponent {
-  constructor(private location: Location) {}
-
-  public goBack(): void {
-    this.location.back();
-  }
-}
+export class QuizePageComponent {}

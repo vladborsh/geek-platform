@@ -49,3 +49,22 @@ html, body {
   font-family: sans-serif;
 }
 
+.space-bottom_1 {
+  margin-bottom: calc(var(--space-atom) * 1);
+}
+
+.space-bottom_2 {
+  margin-bottom: calc(var(--space-atom) * 2);
+}
+
+.space-bottom_3 {
+  margin-bottom: calc(var(--space-atom) * 3);
+}
+
+.space-bottom_4 {
+  margin-bottom: calc(var(--space-atom) * 4);
+}
+
+.space-bottom_5 {
+  margin-bottom: calc(var(--space-atom) * 5);
+}

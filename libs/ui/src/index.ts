@@ -11,6 +11,8 @@ export * from './lib/components/header/header.module';
 export * from './lib/components/header/header.component';
 export * from './lib/components/navigation/navigation.module';
 export * from './lib/components/navigation/navigation.component';
+export * from './lib/components/card/card.component';
+export * from './lib/components/card/card.module';
 export * from './lib/components/list-filter/list-filter.module';
 export * from './lib/components/list-filter/list-filter.component';
 export * from './lib/enums/ui-sizes.enum';

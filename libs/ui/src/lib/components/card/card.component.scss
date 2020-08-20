@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  margin-top: calc(var(--space-atom) * 5);
+  padding: calc(var(--space-atom) * 4);
+  box-shadow: 0 var(--space-atom) calc(var(--space-atom) * 2) 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+
+  &:hover {
+    box-shadow: 0 calc(var(--space-atom) * 2) calc(var(--space-atom) * 4) 0 rgba(0,0,0,0.2);
+  }
+}

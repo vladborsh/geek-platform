@@ -21,10 +21,10 @@ export class QuizService {
 
   public getQuizzes$(): Observable<QuizDto[]> {
     const dayInMs = 8.64e7;
-    const { token, lastSignInTimestamp } = this.authService;
+    const { user, lastSignInTimestamp } = this.authService;
     const isTokenOutDate = Date.now() - lastSignInTimestamp > dayInMs;
 
-    if (isTokenOutDate || !token) {
+    if (isTokenOutDate || !user.token) {
       this.loginWithGoogle();
     }
 

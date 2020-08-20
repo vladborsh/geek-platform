@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { Component, ChangeDetectionStrategy, Input, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'ui-radio',
@@ -12,7 +12,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/for
       multi: true,
     },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RadioComponent<T> implements ControlValueAccessor {
   @Input() label = '';
@@ -51,5 +51,4 @@ export class RadioComponent<T> implements ControlValueAccessor {
       this.value = value;
     }
   }
-
 }
