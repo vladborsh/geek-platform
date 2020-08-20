@@ -3,6 +3,8 @@ import {
   ChangeDetectionStrategy,
   forwardRef,
   Input,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -21,6 +23,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class InputComponent implements ControlValueAccessor {
   @Input() type = 'text';
+
+  @Output() focused = new EventEmitter<void>();
+  @Output() unfocused = new EventEmitter<void>();
+  @Output() onkeydown = new EventEmitter<KeyboardEvent>();
+
   public _value: any;
   public onChange: Function = () => {};
   public onTouched: Function = () => {};
@@ -46,8 +53,18 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   public writeValue(value: any): void {
-    if (value) {
-      this.value = value;
-    }
+    this.value = value;
+  }
+
+  public onFocus(): void {
+    this.focused.emit();
+  }
+
+  public onFocusout(): void {
+    this.unfocused.emit();
+  }
+
+  public onKeydown(event: KeyboardEvent): void {
+    this.onkeydown.next(event);
   }
 }

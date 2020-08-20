@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input, TemplateRef, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { filterItems } from './helpers/filter-items.helper';
+import { filterItems } from '../../helpers/filter-items.helper';
 
 @Component({
   selector: 'ui-list-filter',

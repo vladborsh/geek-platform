@@ -1,0 +1,30 @@
+<ui-input
+  [ngModel]="filter$ | async"
+  (ngModelChange)="onFilterInput($event)"
+  (onkeydown)="onFilterKeydown($event)"
+  (unfocused)="onFilterUnfocused()">
+</ui-input>
+
+<ng-container
+  [ngTemplateOutlet]="dropdown"
+  [ngTemplateOutletContext]="{$implicit: {
+    isSuggestionsShown: isSuggestionsShown$ | async,
+    filteredItems: filteredItems$ | async,
+    activeIndex: activeIndex$ | async
+  }}">
+</ng-container>
+
+<ng-template #dropdown let-data>
+  <div *ngIf="data.isSuggestionsShown" class="suggestions">
+    <div 
+      *ngFor="let item of data.filteredItems; let index = index"
+      [class.active]="index === data.activeIndex"
+      (click)="selectItem(item)"
+      class="item">
+      <ng-container
+        [ngTemplateOutlet]="itemTemplate"
+        [ngTemplateOutletContext]="{$implicit: item}">
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
