@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { QuizService } from '../../services/quiz/quiz.service';
 
 @Component({
   selector: 'app-quize-page',
@@ -6,4 +7,10 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./quize-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuizePageComponent {}
+export class QuizePageComponent implements OnInit {
+  constructor(private quizService: QuizService) {}
+
+  ngOnInit(): void {
+    this.quizService.fetch$().subscribe();
+  }
+}

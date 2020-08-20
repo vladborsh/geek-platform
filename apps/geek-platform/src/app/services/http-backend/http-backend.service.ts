@@ -52,7 +52,7 @@ export class HttpBackendService<T> {
     return this.http.patch<T>(url, data, this.httpOptions);
   }
 
-  public delete$(url: string, id: number): Observable<T> {
+  public delete$(url: string, id: string): Observable<T> {
     return this.http.delete<T>(`${url}/${id}`, this.httpOptions);
   }
 }
