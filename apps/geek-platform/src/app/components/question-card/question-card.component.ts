@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, Output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { QuestionDto } from '@geek-platform/api-interfaces';
 import { UiSizes } from '@geek-platform/ui';
 
@@ -10,17 +10,20 @@ import { UiSizes } from '@geek-platform/ui';
 })
 export class QuestionCardComponent {
   @Input() question: QuestionDto;
-  public current: string;
-  @Output() selected: string;
-  @Output() submitted: string;
+  @Output() selected = new EventEmitter<number>();
+  @Output() submitted = new EventEmitter<number>();
 
   public headerSize = UiSizes.X_SMALL;
+  public selectedAnswer: number;
+  public isSelected = false;
 
-  public onSelected(selectedAnswer: string): void {
-    this.selected = selectedAnswer;
+  public onSelected(selectedAnswer: number): void {
+    this.isSelected = true;
+    this.selectedAnswer = selectedAnswer;
+    this.selected.emit(selectedAnswer);
   }
 
   public onSubmit(): void {
-    this.submitted = this.selected;
+    this.submitted.emit(this.selectedAnswer);
   }
 }

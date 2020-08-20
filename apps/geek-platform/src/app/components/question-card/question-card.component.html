@@ -1,9 +1,15 @@
 <ui-card>
-  <ui-header class="header" [size]="headerSize">{{ question.actualQuestion }}</ui-header>
+  <ui-header class="space-bottom_5" [size]="headerSize">{{ question.actualQuestion }}</ui-header>
 
-  <div *ngFor="let answer of question.answers">
-    <ui-radio label="{{ answer }}" name="'form-question'" [item]="answer" [ngModel]="selected" (ngModelChange)="onSelected($event)"></ui-radio>
+  <div class="space-bottom_3">
+    <ui-radio
+      *ngFor="let answer of question.answers; index as i"
+      [label]="answer"
+      [item]="i"
+      [ngModel]="selectedAnswer"
+      (ngModelChange)="onSelected($event)"
+      name="form-question">
+    </ui-radio>
   </div>
-
-  <ui-button *ngIf="selected" class="btn-submit" label="Submit" (click)="onSubmit()"></ui-button>
+  <ui-button *ngIf="isSelected" label="Submit" (click)="onSubmit()"></ui-button>
 </ui-card>
