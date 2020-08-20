@@ -1,47 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { QuizDto } from '@geek-platform/api-interfaces';
-import { AuthService } from '../auth/auth.service';
-import { environment } from '../../../environments/environment';
+
+import { HttpBackendService } from '../http-backend/http-backend.service';
+
+type QuizRecord = Record<'id', QuizDto>;
+
+const initialState: QuizRecord = {
+  id: {
+    _id: '1',
+    name: '',
+    questions: [],
+  },
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuizService {
-  private quizUrl = 'api/quiz';
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  private _state: BehaviorSubject<QuizRecord> = new BehaviorSubject(initialState);
+  private state: Observable<QuizRecord> = this._state.asObservable();
+  private url = 'api/quiz';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private httBackendService: HttpBackendService<QuizDto>) {}
 
-  public getQuizzes$(): Observable<QuizDto[]> {
-    const dayInMs = 8.64e7;
-    const { user, lastSignInTimestamp } = this.authService;
-    const isTokenOutDate = Date.now() - lastSignInTimestamp > dayInMs;
-
-    if (isTokenOutDate || !user.token) {
-      this.loginWithGoogle();
-    }
-
-    return this.http.get<QuizDto[]>(this.quizUrl, this.httpOptions).pipe(
-      catchError(
-        (error: any): Observable<QuizDto[]> => {
-          console.error(error);
-
-          return of([] as QuizDto[]);
-        },
-      ),
-    );
-  }
-
-  private loginWithGoogle(): void {
-    window.location.replace(
-      `${environment.loginWithGoogleRedirect || window.location.href}api/google`,
-    );
-  }
+  get(): void {}
 }
