@@ -1,23 +1,6 @@
-/*
- * Remove template code below
- */
 :host {
   display: block;
-  min-width: 300px;
-  max-width: 600px;
   margin: 0px auto;
-}
-
-.gutter-left {
-  margin-left: 9px;
-}
-
-.col-span-2 {
-  grid-column: span 2;
-}
-
-.flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  max-width: var(--container-width);
+  padding: calc(var(--space-atom) * 2);
 }

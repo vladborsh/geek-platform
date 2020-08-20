@@ -14,6 +14,7 @@
   --bg-transition: background 300ms ease-in-out;
 
   --nav-header-space: 80px;
+  --container-width: 700px;
   --nav-header-height: calc(var(--space-atom) * 8 + 1rem);
 }
 
@@ -49,22 +50,17 @@ html, body {
   font-family: sans-serif;
 }
 
-.space-bottom_1 {
-  margin-bottom: calc(var(--space-atom) * 1);
-}
+$directions: bottom top left right;
+$spaces: 1 2 3 4 5;
 
-.space-bottom_2 {
-  margin-bottom: calc(var(--space-atom) * 2);
-}
+@each $space in $spaces {
+  @each $direction in $directions {
+    .space-#{$direction}_#{$space} {
+      margin-#{$direction}: calc(var(--space-atom) * #{$space});
+    }
+  }
 
-.space-bottom_3 {
-  margin-bottom: calc(var(--space-atom) * 3);
-}
-
-.space-bottom_4 {
-  margin-bottom: calc(var(--space-atom) * 4);
-}
-
-.space-bottom_5 {
-  margin-bottom: calc(var(--space-atom) * 5);
+  .space_#{$space} {
+    margin: calc(var(--space-atom) * #{$space});
+  }
 }
