@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { QuizDto } from '@geek-platform/api-interfaces';
+import { QuizDto, Create } from '@geek-platform/api-interfaces';
 import { reduce } from '../../helpers';
 import { HttpBackendService } from '../http-backend/http-backend.service';
 
@@ -33,7 +33,7 @@ export class QuizService {
     );
   }
 
-  public create$(quiz: QuizDto): Observable<QuizDto> {
+  public create$(quiz: Create<QuizDto>): Observable<QuizDto> {
     return this.httBackendService.post$(this.url, quiz).pipe(
       tap(res => {
         this._state.next({ ...this._state.getValue(), [res._id]: res });
@@ -60,7 +60,7 @@ export class QuizService {
   }
 
   public get$(): Observable<QuizDto[]> {
-    return this._state.asObservable().pipe(map(data => Object.keys(data).map(k => data[k])));
+    return this._state.asObservable().pipe(map(data => Object.values(data)));
   }
 
   public getById$(id: string): Observable<QuizDto> {
