@@ -1,1 +1,7 @@
-<input [type]="type" [ngModel]="value" (ngModelChange)="writeValue($event)">
+<input
+    [type]="type"
+    [ngModel]="value"
+    (focus)="onFocus()"
+    (focusout)="onFocusout()"
+    (keydown)="onKeydown($event)"
+    (ngModelChange)="writeValue($event)">
