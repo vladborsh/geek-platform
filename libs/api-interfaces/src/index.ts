@@ -7,3 +7,4 @@ export { Update } from './lib/types/update.type';
 export { QuizDto } from './lib/dto/quiz.dto';
 export { QuestionDto } from './lib/dto/question.dto';
 export { QuizAssignmentDto } from './lib/dto/quiz-assignment.dto';
+export { Create } from './lib/types/create.type';
