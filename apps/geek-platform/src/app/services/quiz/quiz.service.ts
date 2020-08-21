@@ -1,47 +1,69 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { QuizDto } from '@geek-platform/api-interfaces';
-import { AuthService } from '../auth/auth.service';
-import { environment } from '../../../environments/environment';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { QuizDto, Create } from '@geek-platform/api-interfaces';
+import { reduce } from '../../helpers';
+import { HttpBackendService } from '../http-backend/http-backend.service';
+
+type QuizRecord = Record<'id', QuizDto>;
+
+const initialState: QuizRecord = {
+  id: {
+    _id: '',
+    name: '',
+    questions: [],
+  },
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuizService {
-  private quizUrl = 'api/quiz';
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  private _state: BehaviorSubject<QuizRecord> = new BehaviorSubject(initialState);
+  private url = 'api/quiz';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private httpBackendService: HttpBackendService) {}
 
-  public getQuizzes$(): Observable<QuizDto[]> {
-    const dayInMs = 8.64e7;
-    const { user, lastSignInTimestamp } = this.authService;
-    const isTokenOutDate = Date.now() - lastSignInTimestamp > dayInMs;
-
-    if (isTokenOutDate || !user.token) {
-      this.loginWithGoogle();
-    }
-
-    return this.http.get<QuizDto[]>(this.quizUrl, this.httpOptions).pipe(
-      catchError(
-        (error: any): Observable<QuizDto[]> => {
-          console.error(error);
-
-          return of([] as QuizDto[]);
-        },
-      ),
+  public fetch$(): Observable<QuizDto[]> {
+    return this.httpBackendService.get$<QuizDto[]>(this.url).pipe(
+      tap((res: QuizDto[]) => {
+        const newState: QuizRecord = reduce((acc, item) => ({ ...acc, [item._id]: item }), {}, res);
+        this._state.next(newState);
+      }),
     );
   }
 
-  private loginWithGoogle(): void {
-    window.location.replace(
-      `${environment.loginWithGoogleRedirect || window.location.href}api/google`,
+  public create$(quiz: Create<QuizDto>): Observable<QuizDto> {
+    return this.httpBackendService.post$<Create<QuizDto>>(this.url, quiz).pipe(
+      tap(res => {
+        this._state.next({ ...this._state.getValue(), [res._id]: res });
+      }),
     );
+  }
+
+  public update$(quiz: QuizDto): Observable<QuizDto> {
+    return this.httpBackendService.put$<QuizDto>(this.url, quiz._id, quiz).pipe(
+      tap(res => {
+        this._state.next({ ...this._state.getValue(), [res._id]: res });
+      }),
+    );
+  }
+
+  public delete$(id: string): Observable<QuizDto> {
+    return this.httpBackendService.delete$<QuizDto>(this.url, id).pipe(
+      tap(res => {
+        const newState = this._state.getValue();
+        delete newState[res._id];
+        this._state.next(newState);
+      }),
+    );
+  }
+
+  public get$(): Observable<QuizDto[]> {
+    return this._state.asObservable().pipe(map(data => Object.values(data)));
+  }
+
+  public getById$(id: string): Observable<QuizDto> {
+    return this._state.asObservable().pipe(map(data => data[id]));
   }
 }
