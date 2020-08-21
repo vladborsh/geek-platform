@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { QuizDto } from '@geek-platform/api-interfaces';
 
 import { HttpBackendService } from './http-backend.service';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('HttpBackendService', () => {
-  let service: HttpBackendService<QuizDto>;
+  let service: HttpBackendService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
