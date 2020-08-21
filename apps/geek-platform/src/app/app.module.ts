@@ -1,10 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { HomeGuard } from './route/guards/home-guard';
-import { AuthInterceptor } from './api/interceptors/auth';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './components/app-routing/app-routing.module';
 import { LoginPageModule } from './components/login-page/login-page.module';
@@ -26,14 +25,7 @@ import { EditorPageModule } from './components/editor-page/editor-page.module';
     QuizePageModule,
     EditorPageModule,
   ],
-  providers: [
-    HomeGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-  ],
+  providers: [HomeGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
