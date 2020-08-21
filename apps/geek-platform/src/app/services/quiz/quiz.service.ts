@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { QuizDto } from '@geek-platform/api-interfaces';
 import { reduce } from '../../helpers';
-
 import { HttpBackendService } from '../http-backend/http-backend.service';
 
 type QuizRecord = Record<'id', QuizDto>;
@@ -21,12 +20,11 @@ const initialState: QuizRecord = {
 })
 export class QuizService {
   private _state: BehaviorSubject<QuizRecord> = new BehaviorSubject(initialState);
-  // public readonly state: Observable<QuizRecord> = this._state.asObservable();
   private url = 'api/quiz';
 
   constructor(private httBackendService: HttpBackendService<QuizDto>) {}
 
-  fetch$(): Observable<QuizDto[]> {
+  public fetch$(): Observable<QuizDto[]> {
     return this.httBackendService.get$(this.url).pipe(
       tap(res => {
         const newState: QuizRecord = reduce((acc, item) => ({ ...acc, [item._id]: item }), {}, res);
@@ -35,7 +33,7 @@ export class QuizService {
     );
   }
 
-  create$(quiz: QuizDto): Observable<QuizDto> {
+  public create$(quiz: QuizDto): Observable<QuizDto> {
     return this.httBackendService.post$(this.url, quiz).pipe(
       tap(res => {
         this._state.next({ ...this._state.getValue(), [res._id]: res });
@@ -43,15 +41,15 @@ export class QuizService {
     );
   }
 
-  update$(quiz: QuizDto): Observable<QuizDto> {
-    return this.httBackendService.put$(`${this.url}/${quiz._id}`, quiz).pipe(
+  public update$(quiz: QuizDto): Observable<QuizDto> {
+    return this.httBackendService.put$(this.url, quiz._id, quiz).pipe(
       tap(res => {
         this._state.next({ ...this._state.getValue(), [res._id]: res });
       }),
     );
   }
 
-  delete$(id: string): Observable<QuizDto> {
+  public delete$(id: string): Observable<QuizDto> {
     return this.httBackendService.delete$(this.url, id).pipe(
       tap(res => {
         const newState = this._state.getValue();
@@ -61,4 +59,11 @@ export class QuizService {
     );
   }
 
+  public get$(): Observable<QuizDto[]> {
+    return this._state.asObservable().pipe(map(data => Object.keys(data).map(k => data[k])));
+  }
+
+  public getById$(id: string): Observable<QuizDto> {
+    return this._state.asObservable().pipe(map(data => data[id]));
+  }
 }

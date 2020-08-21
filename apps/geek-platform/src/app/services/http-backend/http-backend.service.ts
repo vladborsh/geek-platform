@@ -44,12 +44,12 @@ export class HttpBackendService<T> {
     return this.http.post<T>(url, data, this.httpOptions);
   }
 
-  public put$(url: string, data: T): Observable<T> {
-    return this.http.put<T>(url, data, this.httpOptions);
+  public put$(url: string, id: string, data: T): Observable<T> {
+    return this.http.put<T>(`${url}/${id}`, data, this.httpOptions);
   }
 
-  public patch$(url: string, data: T): Observable<T> {
-    return this.http.patch<T>(url, data, this.httpOptions);
+  public patch$(url: string, id: string, data: T): Observable<T> {
+    return this.http.patch<T>(`${url}/${id}`, data, this.httpOptions);
   }
 
   public delete$(url: string, id: string): Observable<T> {
