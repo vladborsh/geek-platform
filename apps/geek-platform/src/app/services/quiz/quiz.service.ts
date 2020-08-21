@@ -22,11 +22,11 @@ export class QuizService {
   private _state: BehaviorSubject<QuizRecord> = new BehaviorSubject(initialState);
   private url = 'api/quiz';
 
-  constructor(private httBackendService: HttpBackendService<QuizDto>) {}
+  constructor(private httpBackendService: HttpBackendService) {}
 
   public fetch$(): Observable<QuizDto[]> {
-    return this.httBackendService.get$(this.url).pipe(
-      tap(res => {
+    return this.httpBackendService.get$<QuizDto[]>(this.url).pipe(
+      tap((res: QuizDto[]) => {
         const newState: QuizRecord = reduce((acc, item) => ({ ...acc, [item._id]: item }), {}, res);
         this._state.next(newState);
       }),
@@ -34,7 +34,7 @@ export class QuizService {
   }
 
   public create$(quiz: Create<QuizDto>): Observable<QuizDto> {
-    return this.httBackendService.post$(this.url, quiz).pipe(
+    return this.httpBackendService.post$<Create<QuizDto>>(this.url, quiz).pipe(
       tap(res => {
         this._state.next({ ...this._state.getValue(), [res._id]: res });
       }),
@@ -42,7 +42,7 @@ export class QuizService {
   }
 
   public update$(quiz: QuizDto): Observable<QuizDto> {
-    return this.httBackendService.put$(this.url, quiz._id, quiz).pipe(
+    return this.httpBackendService.put$<QuizDto>(this.url, quiz._id, quiz).pipe(
       tap(res => {
         this._state.next({ ...this._state.getValue(), [res._id]: res });
       }),
@@ -50,7 +50,7 @@ export class QuizService {
   }
 
   public delete$(id: string): Observable<QuizDto> {
-    return this.httBackendService.delete$(this.url, id).pipe(
+    return this.httpBackendService.delete$<QuizDto>(this.url, id).pipe(
       tap(res => {
         const newState = this._state.getValue();
         delete newState[res._id];
