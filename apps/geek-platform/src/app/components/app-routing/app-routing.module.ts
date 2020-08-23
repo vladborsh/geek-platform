@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from '../login-page/login-page.component';
 import { HomePageComponent } from '../home-page/home-page.component';
 import { WelcomePageComponent } from '../welcome-page/welcome-page.component';
-import { QuizePageComponent } from '../quize-page/quize-page.component';
+import { QuizPageComponent } from '../quiz-page/quiz-page.component';
 import { EditorPageComponent } from '../editor-page/editor-page.component';
 import { HomeGuard } from '../../route/guards/home-guard';
 import { RouteUrls } from '../../enums/route.enum';
@@ -24,7 +24,7 @@ const routes: Routes = [
       },
       {
         path: RouteUrls.QUIZ,
-        component: QuizePageComponent,
+        component: QuizPageComponent,
       },
       {
         path: RouteUrls.EDITOR,

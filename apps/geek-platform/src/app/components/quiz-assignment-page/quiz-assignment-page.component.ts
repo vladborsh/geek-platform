@@ -5,9 +5,12 @@ import { QuizService } from '../../services/quiz/quiz.service';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { QuizAssignmentInterface } from './config/quiz-assignment.interface';
-import { quizAssignmentFilterFunc } from './config/quiz-assignment-filter-func.helper';
 import { Router } from '@angular/router';
 import { RouteUrls } from '../../enums/route.enum';
+
+function quizAssignmentFilterFunc({ quiz, assignedTo }: QuizAssignmentInterface): string {
+  return `${quiz.name}${assignedTo.firstName}${assignedTo.lastName}`;
+}
 
 @Component({
   selector: 'app-quiz-assignment-page',
