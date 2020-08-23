@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, forwardRef, Input, HostListener } from '@angular/core';
+import { Component, ChangeDetectionStrategy, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -16,15 +16,20 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class ToggleComponent implements ControlValueAccessor {
   @Input() label = '';
+  @Input() checked: boolean;
 
   public _value: boolean;
-  public disabled: boolean;
-  public onChange: Function = (value: boolean) => {};
+  public onChange: Function = () => {};
   public onTouched: Function = () => {};
 
-  @HostListener('click')
-  public click(): void {
-    this.writeValue(!this._value);
+  public get value(): boolean {
+    return this._value;
+  }
+
+  public set value(value: boolean) {
+    this._value = value;
+    this.onChange(value);
+    this.onTouched(value);
   }
 
   public registerOnChange(fn: Function): void {
@@ -36,11 +41,6 @@ export class ToggleComponent implements ControlValueAccessor {
   }
 
   public writeValue(value: boolean): void {
-    this._value = value;
-    this.onChange(this._value);
-  }
-
-  public setDisabledState(disabled: boolean): void {
-    this.disabled = disabled;
+      this.value = value;
   }
 }
