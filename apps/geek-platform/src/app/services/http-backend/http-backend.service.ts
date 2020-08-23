@@ -26,8 +26,8 @@ interface HttpOptionsInterface {
 export class HttpBackendService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  public get$<T>(url: string): Observable<T[]> {
-    return this.http.get<T[]>(url, this.getHttpOptions());
+  public get$<T>(url: string): Observable<T> {
+    return this.http.get<T>(url, this.getHttpOptions());
   }
 
   public post$<T>(url: string, data: T): Observable<T> {

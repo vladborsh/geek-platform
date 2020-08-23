@@ -1,0 +1,21 @@
+<ui-button label="Assign" (clicked)="createAssignment()" class="space_4"></ui-button>
+
+<ui-list-filter
+  [filterFiledFunc]="filterFiledFunc"
+  [itemTemplate]="itemTemplate"
+  [items]="items$ | async">
+</ui-list-filter>
+
+<ng-template #itemTemplate let-item>
+  <div class="space-top_3 space-bottom_3">
+    <ng-container *ngIf="item.quiz">
+      {{ item.quiz.name }}
+    </ng-container>
+    <ng-container *ngIf="item.assignedTo">
+      {{ item.assignedTo.firstName }} {{ item.assignedTo.lastName }}
+    </ng-container>
+    <div>
+      {{ item.createdDate | date }}
+    </div>
+  </div>
+</ng-template>

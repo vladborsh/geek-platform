@@ -10,7 +10,7 @@ import { filterItems } from '../../helpers/filter-items.helper';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListFilterComponent<T> implements OnInit {
-  @Input() filterFields: string[];
+  @Input() filterFiledFunc: (item: T) => string;
   @Input() itemTemplate: TemplateRef<any>;
   @Input('items') set _items(value: T[]) {
     this.itemsInput$.next(value);
@@ -24,7 +24,7 @@ export class ListFilterComponent<T> implements OnInit {
   ngOnInit(): void {
     this.items$ = combineLatest([this.itemsInput$, this.filter$])
       .pipe(
-        map(([items, filter]) => filterItems(items, filter, this.filterFields)),
+        map(([items, filter]) => filterItems(items, filter, this.filterFiledFunc)),
       );
   }
 

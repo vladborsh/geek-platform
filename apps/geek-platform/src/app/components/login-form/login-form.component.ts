@@ -5,7 +5,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { filter, map, catchError, take } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthDataDto } from '@geek-platform/api-interfaces';
-import { Routes } from '../../enums/route.enum';
+import { RouteUrls } from '../../enums/route.enum';
 
 @Component({
   selector: 'app-login-form',
@@ -48,7 +48,7 @@ export class LoginFormComponent implements OnInit {
       .subscribe((authData: AuthDataDto) => {
         this.authService.user = authData;
         this.authService.lastSignInTimestamp = Date.now();
-        this.router.navigate([`/${Routes.HOME}`]);
+        this.router.navigate([`/${RouteUrls.HOME}`]);
       });
   }
 }

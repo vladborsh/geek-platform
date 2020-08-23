@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ButtonModule, NavigationModule } from '@geek-platform/ui';
-
 import { HomePageComponent } from './home-page.component';
 
 @NgModule({

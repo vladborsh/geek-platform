@@ -11,7 +11,9 @@
 
   --space-atom: 4px;
   --radius: var(--space-atom);
-  --bg-transition: background 300ms ease-in-out;
+  --transition: 300ms;
+  --bg-transition: background var(--transition) ease-in-out;
+  --border-transition: border var(--transition) ease-in-out;
 
   --nav-header-space: 80px;
   --container-width: 700px;

@@ -5,21 +5,11 @@ import { QuizDto, Create } from '@geek-platform/api-interfaces';
 import { reduce } from '../../helpers';
 import { HttpBackendService } from '../http-backend/http-backend.service';
 
-type QuizRecord = Record<'id', QuizDto>;
-
-const initialState: QuizRecord = {
-  id: {
-    _id: '',
-    name: '',
-    questions: [],
-  },
-};
-
 @Injectable({
   providedIn: 'root',
 })
 export class QuizService {
-  private _state: BehaviorSubject<QuizRecord> = new BehaviorSubject(initialState);
+  private _state: BehaviorSubject<Record<string, QuizDto>> = new BehaviorSubject({});
   private url = 'api/quiz';
 
   constructor(private httpBackendService: HttpBackendService) {}
@@ -27,7 +17,7 @@ export class QuizService {
   public fetch$(): Observable<QuizDto[]> {
     return this.httpBackendService.get$<QuizDto[]>(this.url).pipe(
       tap((res: QuizDto[]) => {
-        const newState: QuizRecord = reduce((acc, item) => ({ ...acc, [item._id]: item }), {}, res);
+        const newState: Record<string, QuizDto> = reduce((acc, item) => ({ ...acc, [item._id]: item }), {}, res);
         this._state.next(newState);
       }),
     );
@@ -35,7 +25,7 @@ export class QuizService {
 
   public create$(quiz: Create<QuizDto>): Observable<QuizDto> {
     return this.httpBackendService.post$<Create<QuizDto>>(this.url, quiz).pipe(
-      tap(res => {
+      tap((res: QuizDto) => {
         this._state.next({ ...this._state.getValue(), [res._id]: res });
       }),
     );
@@ -51,16 +41,24 @@ export class QuizService {
 
   public delete$(id: string): Observable<QuizDto> {
     return this.httpBackendService.delete$<QuizDto>(this.url, id).pipe(
-      tap(res => {
-        const newState = this._state.getValue();
-        delete newState[res._id];
-        this._state.next(newState);
-      }),
+      tap(() =>
+        this._state.next(
+          reduce(
+            (acc, item) => item._id === id ? acc : ({ ...acc, [item._id]: item }),
+            {},
+            Object.values(this._state.getValue()),
+          ),
+        ),
+      ),
     );
   }
 
   public get$(): Observable<QuizDto[]> {
     return this._state.asObservable().pipe(map(data => Object.values(data)));
+  }
+
+  public getRecord$(): Observable<Record<string, QuizDto>> {
+    return this._state.asObservable();
   }
 
   public getById$(id: string): Observable<QuizDto> {

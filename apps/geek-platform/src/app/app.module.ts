@@ -11,6 +11,8 @@ import { HomePageModule } from './components/home-page/home-page.module';
 import { WelcomePageModule } from './components/welcome-page/welcome-page.module';
 import { QuizePageModule } from './components/quize-page/quize-page.module';
 import { EditorPageModule } from './components/editor-page/editor-page.module';
+import { QuizAssignmentPageModule } from './components/quiz-assignment-page/quiz-assignment-page.module';
+import { QuizAssignmentCreatePageModule } from './components/quiz-assignment-create-page/quiz-assignment-create-page.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +26,8 @@ import { EditorPageModule } from './components/editor-page/editor-page.module';
     WelcomePageModule,
     QuizePageModule,
     EditorPageModule,
+    QuizAssignmentPageModule,
+    QuizAssignmentCreatePageModule,
   ],
   providers: [HomeGuard],
   bootstrap: [AppComponent],
