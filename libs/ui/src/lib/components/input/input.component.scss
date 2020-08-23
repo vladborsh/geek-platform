@@ -10,12 +10,12 @@ input[type='text'] {
   box-sizing: border-box;
   border-radius: var(--radius);
   border: 2px solid var(--input-border);
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  -webkit-transition: var(--border-transition);
+  transition: var(--border-transition);
   outline: none;
   color: var(--text);
 
   &:focus {
-    border: 3px solid var(--input-fcs-border);
+    border-color: var(--input-fcs-border);
   }
 }

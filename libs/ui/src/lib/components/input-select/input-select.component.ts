@@ -28,7 +28,7 @@ import { Keys } from '../../enums/keys.enum';
 })
 export class InputSelectComponent<T, K extends keyof T>
   implements OnInit, OnDestroy, ControlValueAccessor {
-  @Input() filterFields: string[];
+  @Input() filterFiledFunc: (item: T) => string;
   @Input() itemTemplate: TemplateRef<any>;
   @Input() valueMapper: (item: T) => T[K];
   @Input() labelMapper: (item: T) => string;
@@ -42,6 +42,7 @@ export class InputSelectComponent<T, K extends keyof T>
   public keydown$ = new Subject<KeyboardEvent>();
   public isSuggestionsShown$ = new BehaviorSubject<boolean>(false);
 
+  private blockSuggestion$ = new BehaviorSubject<boolean>(false);
   private itemsInput$ = new BehaviorSubject<T[]>([]);
   private onDestroy$ = new Subject<void>();
   private _value: T[K];
@@ -52,8 +53,13 @@ export class InputSelectComponent<T, K extends keyof T>
   ngOnInit(): void {
     this.filteredItems$ = combineLatest([this.itemsInput$, this.filter$])
       .pipe(
-        tap(([items, filter]) => this.isSuggestionsShown$.next(!!items.length && !!filter)),
-        map(([items, filter]) => filterItems(items, filter, this.filterFields)),
+        withLatestFrom(this.blockSuggestion$),
+        tap(([[items, filter], blockSuggestion]) => {
+          if (!blockSuggestion) {
+            this.isSuggestionsShown$.next(!!items.length && !!filter);
+          }
+        }),
+        map(([[items, filter]]) => filterItems(items, filter, this.filterFiledFunc)),
         tap(() => this.activeIndex$.next(-1)),
       );
 
@@ -114,12 +120,14 @@ export class InputSelectComponent<T, K extends keyof T>
   }
 
   public onFilterUnfocused(): void {
-    setTimeout(() => this.isSuggestionsShown$.next(false));
+    setTimeout(() => this.isSuggestionsShown$.next(false), 100);
   }
 
   public selectItem(item: T): void {
+    this.blockSuggestion$.next(true);
     this.writeValue(this.valueMapper(item));
     this.filter$.next(this.labelMapper(item));
     this.isSuggestionsShown$.next(false);
+    setTimeout(() => this.blockSuggestion$.next(false));
   }
 }

@@ -1,0 +1,30 @@
+<ui-input-select
+  [items]="users$ | async"
+  [valueMapper]="userSelectValueMapper"
+  [labelMapper]="userSelectLabelMapper"
+  [filterFiledFunc]="userSelectLabelMapper"
+  [itemTemplate]="userItemTemplate"
+  [ngModel]="userId$ | async"
+  (ngModelChange)="onUserChange($event)">
+</ui-input-select>
+
+<ui-input-select
+  [items]="quizzes$ | async"
+  [valueMapper]="quizSelectValueMapper"
+  [labelMapper]="quizSelectLabelMapper"
+  [filterFiledFunc]="quizSelectLabelMapper"
+  [itemTemplate]="quizItemTemplate"
+  [ngModel]="quizId$ | async"
+  (ngModelChange)="onQuizChange($event)">
+</ui-input-select>
+
+<ui-button *ngIf="assignVisible$ | async" label="Assign" (clicked)="onAssign()"></ui-button>
+
+<ng-template #userItemTemplate let-item>
+  {{ item.firstName }}
+  {{ item.lastName }}
+</ng-template>
+
+<ng-template #quizItemTemplate let-item>
+  {{ item.name }}
+</ng-template>

@@ -1,17 +1,21 @@
 import { NavigationInterface } from '@geek-platform/ui';
-import { Routes } from '../enums/route.enum';
+import { RouteUrls } from '../enums/route.enum';
 
 export const HOME_NAVIGATION: NavigationInterface[] = [
   {
     label: 'Welcome',
-    route: `/${Routes.HOME}`,
+    route: `/${RouteUrls.HOME}`,
   },
   {
     label: 'Quiz',
-    route: `/${Routes.HOME}/${Routes.QUIZ}`,
+    route: `/${RouteUrls.HOME}/${RouteUrls.QUIZ}`,
   },
   {
     label: 'Editor',
-    route: `/${Routes.HOME}/${Routes.EDITOR}`,
+    route: `/${RouteUrls.HOME}/${RouteUrls.EDITOR}`,
+  },
+  {
+    label: 'Assignment',
+    route: `/${RouteUrls.HOME}/${RouteUrls.QUIZ_ASSIGNMENT}`,
   },
 ];

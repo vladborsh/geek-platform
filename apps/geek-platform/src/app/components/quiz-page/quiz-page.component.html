@@ -1,0 +1,11 @@
+<ui-list-filter
+  [filterFiledFunc]="filterFiledFunc"
+  [itemTemplate]="itemTemplate"
+  [items]="items$ | async">
+</ui-list-filter>
+
+<ng-template #itemTemplate let-item>
+  <div class="space-top_3 space-bottom_3">
+    {{ item.name }}
+  </div>
+</ng-template>

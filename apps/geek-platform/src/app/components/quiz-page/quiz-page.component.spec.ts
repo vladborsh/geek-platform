@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 
-import { QuizePageComponent } from './quize-page.component';
-import { QuizePageModule } from './quize-page.module';
+import { QuizPageComponent } from './quiz-page.component';
+import { QuizPageModule } from './quiz-page.module';
 
-describe('QuizePageComponent', () => {
-  let component: QuizePageComponent;
-  let fixture: ComponentFixture<QuizePageComponent>;
+describe('QuizPageComponent', () => {
+  let component: QuizPageComponent;
+  let fixture: ComponentFixture<QuizPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [QuizePageModule, HttpClientModule],
+      imports: [QuizPageModule, HttpClientModule],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QuizePageComponent);
+    fixture = TestBed.createComponent(QuizPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

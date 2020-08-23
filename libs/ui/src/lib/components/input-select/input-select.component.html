@@ -1,3 +1,4 @@
+{{ isSuggestionsShown$ | async }}
 <ui-input
   [ngModel]="filter$ | async"
   (ngModelChange)="onFilterInput($event)"

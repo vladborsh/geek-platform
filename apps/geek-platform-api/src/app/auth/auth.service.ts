@@ -53,9 +53,8 @@ export class AuthService {
           password: '',
           role: RoleType.INTERN,
           teacherId: '',
-          createdDate: Date.now(),
           photoImgUrl: profile.photos && profile.photos[0] && profile.photos[0].value,
-        }, '').toPromise();
+        }).toPromise();
       }
 
       return userToAuthData(user, this.jwtService.sign({ email: user.email, role: user.role }));
