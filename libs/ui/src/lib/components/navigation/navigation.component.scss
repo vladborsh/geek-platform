@@ -48,10 +48,6 @@ a {
     max-height: var(--nav-header-height);
   }
 
-  @media (max-width: 600px) {
-    display: block;
-  }
-
   &.icon {
     color: var(--gray0);
     display: block;

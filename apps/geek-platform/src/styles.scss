@@ -51,6 +51,12 @@
   --separator: var(--gray3)
 }
 
+.mobile-only {
+  @media (max-width: 600px) {
+    display: block;
+  }
+}
+
 html, body {
   padding: 0;
   margin: 0;

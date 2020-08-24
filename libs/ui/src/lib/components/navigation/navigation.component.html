@@ -17,7 +17,8 @@
       (click)="mobileNavSelected()"
       class="mobile-nav-links">
       <a
-        *ngFor="let item of navList" 
+        uiMobileOnly
+        *ngFor="let item of navList"
         [routerLinkActiveOptions]="{exact: true}"
         routerLink="{{item.route}}"
         routerLinkActive="active">
@@ -29,4 +30,3 @@
     </a>
   </div>
 </header>
-
