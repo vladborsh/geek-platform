@@ -17,5 +17,7 @@ export * from './lib/components/list-filter/list-filter.module';
 export * from './lib/components/list-filter/list-filter.component';
 export * from './lib/components/input-select/input-select.module';
 export * from './lib/components/input-select/input-select.component';
+export * from './lib/components/toggle/toggle.module';
+export * from './lib/components/toggle/toggle.component';
 export * from './lib/enums/ui-sizes.enum';
 export * from './lib/interfaces/ui-navigation.interface';
