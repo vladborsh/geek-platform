@@ -1,4 +1,5 @@
 import { Identifiable } from '../base/identifiable.dto';
+import { AssignmentStatus } from '../enums/assignment-status.enum';
 
 export interface QuizAssignmentDto extends Identifiable {
     createdDate: number;
@@ -6,4 +7,7 @@ export interface QuizAssignmentDto extends Identifiable {
     quizId: string;
     timeLimitMs: number;
     dueDate: number;
+    status: AssignmentStatus;
+    startTime: number;
+    endTime: number;
 }

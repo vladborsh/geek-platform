@@ -3,8 +3,8 @@ import {
   QuizAssignmentService,
   QuizAssignmentData,
 } from '../../data-access/quiz-assignment/quiz-assignment.service';
-import { QuizAssignmentDto, Update, RoleType, AuthDataDto } from '@geek-platform/api-interfaces';
-import { map } from 'rxjs/operators';
+import { QuizAssignmentDto, Update, RoleType, AuthDataDto, AssignmentStatus } from '@geek-platform/api-interfaces';
+import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import {
   PermissionModel,
@@ -62,8 +62,30 @@ export class QuizAssignmentDomainService {
     validateOperationByPermission(userRole, quizAssignmentPermissionModel, OperationType.CREATE);
 
     return this.quizAssignmentService
-      .create$({ ...payload, createdDate: Date.now() })
+      .create$({ ...payload, status: AssignmentStatus.ASSIGNED, createdDate: Date.now() })
       .pipe(map((result: QuizAssignmentData) => result.toObject()));
+  }
+
+  public start$(id: string, { role: userRole, id: userId }: AuthDataDto): Observable<QuizAssignmentDto> {
+    return this.quizAssignmentService.findById$(id)
+      .pipe(
+        switchMap((assignment: QuizAssignmentData) => this.quizAssignmentService.update$({
+          ...assignment.toObject(),
+          status: AssignmentStatus.IN_PROGRESS,
+          startTime: Date.now(),
+        })),
+      );
+  }
+
+  public stop$(id: string, { role: userRole, id: userId }: AuthDataDto): Observable<QuizAssignmentDto> {
+    return this.quizAssignmentService.findById$(id)
+      .pipe(
+        switchMap((assignment: QuizAssignmentData) => this.quizAssignmentService.update$({
+          ...assignment.toObject(),
+          status: AssignmentStatus.DONE,
+          endTime: Date.now(),
+        })),
+      );
   }
 
   public find$(

@@ -22,16 +22,32 @@ export class QuizAssignmentService {
     );
   }
 
-  public create$(quiz: Create<QuizAssignmentDto>): Observable<QuizAssignmentDto> {
-    return this.httpBackendService.post$<Create<QuizAssignmentDto>>(this.url, quiz).pipe(
+  public create$(quizAssignment: Create<QuizAssignmentDto>): Observable<QuizAssignmentDto> {
+    return this.httpBackendService.post$<Create<QuizAssignmentDto>>(this.url, quizAssignment).pipe(
       tap((res: QuizAssignmentDto) => {
         this._state.next({ ...this._state.getValue(), [res._id]: res });
       }),
     );
   }
 
-  public update$(quiz: Update<QuizAssignmentDto>): Observable<QuizAssignmentDto> {
-    return this.httpBackendService.put$<Update<QuizAssignmentDto>>(this.url, quiz._id, quiz).pipe(
+  public update$(quizAssignment: Update<QuizAssignmentDto>): Observable<QuizAssignmentDto> {
+    return this.httpBackendService.put$<Update<QuizAssignmentDto>>(this.url, quizAssignment._id, quizAssignment).pipe(
+      tap((res: QuizAssignmentDto) => {
+        this._state.next({ ...this._state.getValue(), [res._id]: res });
+      }),
+    );
+  }
+
+  public start$(id: string): Observable<QuizAssignmentDto> {
+    return this.httpBackendService.post$<{}>(`${this.url}/${id}/start`, {}).pipe(
+      tap((res: QuizAssignmentDto) => {
+        this._state.next({ ...this._state.getValue(), [res._id]: res });
+      }),
+    );
+  }
+
+  public stop$(id: string): Observable<QuizAssignmentDto> {
+    return this.httpBackendService.post$<{}>(`${this.url}/${id}/stop`, {}).pipe(
       tap((res: QuizAssignmentDto) => {
         this._state.next({ ...this._state.getValue(), [res._id]: res });
       }),

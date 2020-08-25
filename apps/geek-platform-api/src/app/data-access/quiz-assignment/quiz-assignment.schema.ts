@@ -9,6 +9,9 @@ export const quizAssignmentSchema = new Schema(
     quizId: String,
     timeLimitMs: Number,
     dueDate: Number,
+    startTime: Number,
+    endTime: Number,
+    status: String,
   }),
 );
 

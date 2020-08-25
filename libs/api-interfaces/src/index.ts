@@ -1,6 +1,7 @@
 export * from './lib/api-interfaces';
 export { Identifiable } from './lib/base/identifiable.dto';
 export { RoleType } from './lib/enums/role-type.enum';
+export { AssignmentStatus } from './lib/enums/assignment-status.enum';
 export { AuthDataDto } from './lib/dto/auth-data.dto';
 export { UserDto } from './lib/dto/user.dto';
 export { Update } from './lib/types/update.type';

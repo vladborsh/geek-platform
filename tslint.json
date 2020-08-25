@@ -10,6 +10,7 @@
     "exclude": ["**/*.d.ts", "*.d.ts", "**/*.assets.ts", "*.assets.ts", "utils/*", "**/schematics/**"]
   },
   "rules": {
+    "no-unnecessary-callback-wrapper": false,
     "invalid-void": false,
     "no-return-await": false,
     "template-no-negated-async": false,

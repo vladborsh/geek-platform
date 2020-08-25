@@ -17,6 +17,24 @@ export class QuizAssignmentController {
     return this.quizAssignmentDomainService.create$(quizAssignmentDto, req.user, null);
   }
 
+  @Post(':id/start')
+  @UseGuards(AuthGuard())
+  public startById$(
+    @Param('id') id: string,
+    @Request() req: { user: AuthDataDto },
+  ): Observable<QuizAssignmentDto> {
+    return this.quizAssignmentDomainService.start$(id, req.user);
+  }
+
+  @Post(':id/stop')
+  @UseGuards(AuthGuard())
+  public stopById$(
+    @Param('id') id: string,
+    @Request() req: { user: AuthDataDto },
+  ): Observable<QuizAssignmentDto> {
+    return this.quizAssignmentDomainService.stop$(id, req.user);
+  }
+
   @Put(':id')
   @UseGuards(AuthGuard())
   public update$(
