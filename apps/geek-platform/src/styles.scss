@@ -93,4 +93,9 @@ $spaces: 1 2 3 4 5;
 .flex {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
 }

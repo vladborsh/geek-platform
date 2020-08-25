@@ -100,6 +100,7 @@ function removeAnswer(state: State, index: number): State {
     question: {
       ...state.question,
       answers: newAnswers,
+      correctAnswer: state.question.correctAnswer + 1 > newAnswers.length ? 0 : state.question.correctAnswer,
     },
   };
 }
