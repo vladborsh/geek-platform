@@ -13,7 +13,7 @@ export class EditorPageComponent {
     answers: ['Yes', 'No', 'I don`t know', 'Ask me later'],
     _id: '5f3f878cc8975e09e7fa9112',
     actualQuestion: 'Do you like potato?',
-    correctAnswer: 1,
+    correctAnswer: 0,
   };
   constructor(private location: Location) {}
 

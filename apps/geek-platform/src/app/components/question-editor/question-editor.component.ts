@@ -8,6 +8,9 @@ interface State {
   isVisibleDeleteButton: boolean;
 }
 
+const MAX_ANSWERS_COUNT = 6;
+const MIN_ANSWERS_COUNT = 3;
+
 @Component({
     selector: 'app-question-editor',
     templateUrl: './question-editor.component.html',
@@ -18,73 +21,99 @@ export class QuestionEditorComponent implements OnInit {
   @Input() model: QuestionDto;
   @Output() modelChange = new EventEmitter<QuestionDto>();
   public state$: BehaviorSubject<State>;
-  private MAX_ANSWERS_COUNT = 6;
-  private MIN_ANSWERS_COUNT = 3;
 
   ngOnInit(): void {
     this.state$ = new BehaviorSubject<State>({
       question: this.model,
-      isVisibleAddButton: this.model.answers.length < this.MAX_ANSWERS_COUNT,
-      isVisibleDeleteButton: this.model.answers.length > this.MIN_ANSWERS_COUNT,
+      isVisibleAddButton: this.model.answers.length < MAX_ANSWERS_COUNT,
+      isVisibleDeleteButton: this.model.answers.length > MIN_ANSWERS_COUNT,
     });
+    this.state$.subscribe(data => this.modelChange.emit(data.question));
   }
 
-  public changeAnswer(value: string, index: number): void {
-    const state = this.state$.getValue();
-    const newAnswers = state.question.answers;
-    newAnswers[index] = value;
-
-    this.state$.next({
-      ...state,
-      question: {
-        ...state.question,
-        answers: newAnswers,
-      },
-    });
-  }
-  public changeActualQuestion(value: string): void {
-    const state = this.state$.getValue();
-    this.state$.next({
-      ...state,
-      question: {
-        ...state.question,
-        actualQuestion: value,
-      },
-    });
+  public onChangeAnswer(text: string, index: number): void {
+    this.state$.next(changeAnswer(this.getState(), text, index));
   }
 
-  public onDelete(index: number): void {
-    const state = this.state$.getValue();
-    const newAnswers = state.question.answers.filter((_, i) => i !== index);
+  public onChangeCorrectAnswer(number: number): void {
+    this.state$.next(changeCorrectAnswer(this.getState(), number));
+  }
 
-    this.state$.next({
-      ...state,
-      isVisibleDeleteButton: newAnswers.length > this.MIN_ANSWERS_COUNT,
-      isVisibleAddButton: newAnswers.length < this.MAX_ANSWERS_COUNT,
-      question: {
-        ...state.question,
-        answers: newAnswers,
-      },
-    });
+  public onChangeActualQuestion(text: string): void {
+    this.state$.next(changeActualQuestion(this.getState(), text));
+  }
+
+  public onRemove(index: number): void {
+    this.state$.next(removeAnswer(this.getState(), index));
   }
 
   public onAdd(): void {
-    const state = this.state$.getValue();
-    const newAnswers = state.question.answers;
-    newAnswers.push('');
-
-    this.state$.next({
-      ...state,
-      isVisibleDeleteButton: newAnswers.length > this.MIN_ANSWERS_COUNT,
-      isVisibleAddButton: newAnswers.length < this.MAX_ANSWERS_COUNT,
-      question: {
-        ...state.question,
-        answers: newAnswers,
-      },
-    });
+    this.state$.next(addAnswer(this.getState()));
   }
 
-  public onChange(): void {
-    this.modelChange.emit(this.state$.getValue().question);
+  public trackByFunc(i: number): number {
+    return i;
   }
+
+  private getState(): State {
+    return this.state$.getValue();
+  }
+}
+
+function changeAnswer(state: State, text: string, index: number): State {
+  return {
+    ...state,
+    question: {
+      ...state.question,
+      answers: state.question.answers.map((item, i) => i === index ? text : item),
+    },
+  };
+}
+
+function changeCorrectAnswer(state: State, number: number): State {
+  return {
+    ...state,
+    question: {
+      ...state.question,
+      correctAnswer: number,
+    },
+  };
+}
+
+function changeActualQuestion(state: State, text: string): State {
+  return {
+    ...state,
+    question: {
+      ...state.question,
+      actualQuestion: text,
+    },
+  };
+}
+
+function removeAnswer(state: State, index: number): State {
+  const newAnswers = state.question.answers.filter((_, i) => i !== index);
+
+  return {
+    ...state,
+    isVisibleDeleteButton: newAnswers.length > MIN_ANSWERS_COUNT,
+    isVisibleAddButton: newAnswers.length < MAX_ANSWERS_COUNT,
+    question: {
+      ...state.question,
+      answers: newAnswers,
+    },
+  };
+}
+
+function addAnswer(state: State): State {
+  const newAnswers = [ ...state.question.answers, ''];
+
+  return {
+    ...state,
+    isVisibleDeleteButton: newAnswers.length > MIN_ANSWERS_COUNT,
+    isVisibleAddButton: newAnswers.length < MAX_ANSWERS_COUNT,
+    question: {
+      ...state.question,
+      answers: newAnswers,
+    },
+  };
 }
