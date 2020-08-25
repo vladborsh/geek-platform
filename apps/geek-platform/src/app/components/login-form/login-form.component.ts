@@ -7,6 +7,8 @@ import { of } from 'rxjs';
 import { AuthDataDto } from '@geek-platform/api-interfaces';
 import { RouteUrls } from '../../enums/route.enum';
 
+const DAY = 1000 * 60 * 60 * 24;
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -22,6 +24,7 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkRouteForAuth();
+    this.checkStorageForAuth();
   }
 
   public loginWithGoogle(): void {
@@ -30,7 +33,7 @@ export class LoginFormComponent implements OnInit {
     );
   }
 
-  public checkRouteForAuth(): void {
+  private checkRouteForAuth(): void {
     this.activatedRoute.queryParamMap
       .pipe(
         filter(
@@ -50,5 +53,11 @@ export class LoginFormComponent implements OnInit {
         this.authService.lastSignInTimestamp = Date.now();
         this.router.navigate([`/${RouteUrls.HOME}`]);
       });
+  }
+
+  private checkStorageForAuth(): void {
+    if (this.authService.user && (Date.now() - this.authService.lastSignInTimestamp) < DAY) {
+      this.router.navigate([`/${RouteUrls.HOME}`]);
+    }
   }
 }

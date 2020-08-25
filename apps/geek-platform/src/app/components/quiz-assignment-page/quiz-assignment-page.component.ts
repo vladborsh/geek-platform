@@ -36,12 +36,10 @@ export class QuizAssignmentPageComponent implements OnInit {
       this.userService.getRecord$(),
     ]).pipe(
       map(([quizAssignments, quizzesRecord, usersRecord]) =>
-        quizAssignments.map(({ createdDate, assignedToId, quizId, timeLimitMs, dueDate }) => ({
-          createdDate,
-          assignedTo: usersRecord[assignedToId],
-          quiz: quizzesRecord[quizId],
-          timeLimitMs,
-          dueDate,
+        quizAssignments.map(assignment => ({
+          ...assignment,
+          assignedTo: usersRecord[assignment.assignedToId],
+          quiz: quizzesRecord[assignment.quizId],
         })),
       ),
     );

@@ -6,7 +6,6 @@
   background-color: var(--button);
   border: none;
   color: var(--button-text);
-  padding: 0.6rem 1rem;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -18,5 +17,21 @@
 
   &:hover {
     background: var(--button-hov);
+  }
+
+  &._x-small {
+    padding: calc(var(--space-atom) * 0.4) calc(var(--space-atom) * 1.2);
+  }
+  
+  &._small {
+    padding: calc(var(--space-atom) * 0.8) calc(var(--space-atom) * 1.6);
+  }
+
+  &._medium {
+    padding: calc(var(--space-atom) * 1.2) calc(var(--space-atom) * 2);
+  }
+
+  &._large {
+    padding: calc(var(--space-atom) * 1.6) calc(var(--space-atom) * 2.4);
   }
 }

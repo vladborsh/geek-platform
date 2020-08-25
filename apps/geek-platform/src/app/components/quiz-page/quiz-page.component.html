@@ -5,7 +5,10 @@
 </ui-list-filter>
 
 <ng-template #itemTemplate let-item>
-  <div class="space-top_3 space-bottom_3">
-    {{ item.name }}
+  <div class="space-top_1 space-bottom_1 flex">
+    <div>{{ item.name }}</div>
+    <div>
+      <ui-button label='Take it' (clicked)="runQuiz(item._id)"></ui-button>
+    </div>
   </div>
 </ng-template>

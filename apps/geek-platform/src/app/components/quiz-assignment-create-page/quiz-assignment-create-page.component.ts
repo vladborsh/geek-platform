@@ -3,6 +3,7 @@ import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/
 import { QuizDto, UserDto } from '@geek-platform/api-interfaces';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { map, mapTo, switchMap, takeUntil } from 'rxjs/operators';
+import { createQuizAssignmentDefaults } from '../../helpers/create-quiz-assignment-defaults.helper';
 import { QuizAssignmentService } from '../../services/quiz-assignment/quiz-assignment.service';
 import { QuizService } from '../../services/quiz/quiz.service';
 import { UserService } from '../../services/user/user.service';
@@ -45,10 +46,9 @@ export class QuizAssignmentCreatePageComponent implements OnInit, OnDestroy {
         switchMap(([assignedToId, quizId]) => this.onAssign$.pipe(mapTo([assignedToId, quizId]))),
         switchMap(([assignedToId, quizId]) =>
           this.quizAssignmentService.create$({
+            ...createQuizAssignmentDefaults(),
             assignedToId,
             quizId,
-            timeLimitMs: 120000,
-            dueDate: null,
           }),
         ),
         takeUntil(this.onDestroy$),

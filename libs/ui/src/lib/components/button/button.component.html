@@ -1,3 +1,10 @@
-<button (click)="clicked.next()" class="button" type="button">
+<button
+  (click)="clicked.next()"
+  [class._x-small]="size === uiSizes.X_SMALL"
+  [class._small]="size === uiSizes.SMALL"
+  [class._medium]="size === uiSizes.MEDIUM"
+  [class._large]="size === uiSizes.LARGE"
+  class="button"
+  type="button">
   {{ label }}
 </button>   
