@@ -9,6 +9,8 @@
   --green: #4caf50;
   --green2: #4ec051;
 
+  --danger0: #FF0000;
+
   --space-atom: 4px;
   --radius: var(--space-atom);
   --transition: 300ms;
@@ -91,4 +93,9 @@ $spaces: 1 2 3 4 5;
 .flex {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
 }

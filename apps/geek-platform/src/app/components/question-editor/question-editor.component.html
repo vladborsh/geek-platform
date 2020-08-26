@@ -1,0 +1,16 @@
+<ng-container *ngIf="state$ | async as state">
+  <div>
+    <ui-input
+      class="space-bottom_5"
+      [ngModel]="state.question.actualQuestion"
+      (ngModelChange)="onChangeActualQuestion($event)">
+    </ui-input>
+
+    <div class="flex space-bottom_3" *ngFor="let answer of state.question.answers; index as i; trackBy: trackByFunc">
+      <ui-radio [item]="i" [ngModel]="state.question.correctAnswer" (ngModelChange)="onChangeCorrectAnswer($event)"></ui-radio>
+      <ui-input class="full-width" [ngModel]="answer" (ngModelChange)="onChangeAnswer($event, i)"></ui-input>
+      <ui-button class="space-left_5" *ngIf="state.isVisibleDeleteButton" label="Delete" (click)="onRemove(i)"></ui-button>
+    </div>
+    <ui-button *ngIf="state.isVisibleAddButton" label="Add" (click)="onAdd()"></ui-button>
+  </div>
+</ng-container>

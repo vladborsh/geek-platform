@@ -1,4 +1,3 @@
-{{ isSuggestionsShown$ | async }}
 <ui-input
   [ngModel]="filter$ | async"
   (ngModelChange)="onFilterInput($event)"
@@ -17,7 +16,7 @@
 
 <ng-template #dropdown let-data>
   <div *ngIf="data.isSuggestionsShown" class="suggestions">
-    <div 
+    <div
       *ngFor="let item of data.filteredItems; let index = index"
       [class.active]="index === data.activeIndex"
       (click)="selectItem(item)"
