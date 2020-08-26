@@ -1,15 +1,13 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { QuestionDto } from '@geek-platform/api-interfaces';
 import { BehaviorSubject } from 'rxjs';
+import * as config from './config';
 
-interface State {
+export interface State {
   question: QuestionDto;
   isVisibleAddButton: boolean;
   isVisibleDeleteButton: boolean;
 }
-
-const MAX_ANSWERS_COUNT = 6;
-const MIN_ANSWERS_COUNT = 3;
 
 @Component({
     selector: 'app-question-editor',
@@ -23,98 +21,31 @@ export class QuestionEditorComponent implements OnInit {
   public state$: BehaviorSubject<State>;
 
   ngOnInit(): void {
-    this.state$ = new BehaviorSubject<State>({
-      question: this.model,
-      isVisibleAddButton: this.model.answers.length < MAX_ANSWERS_COUNT,
-      isVisibleDeleteButton: this.model.answers.length > MIN_ANSWERS_COUNT,
-    });
+    this.state$ = new BehaviorSubject<State>(config.initState(this.model));
     this.state$.subscribe(data => this.modelChange.emit(data.question));
   }
 
   public onChangeAnswer(text: string, index: number): void {
-    this.state$.next(changeAnswer(this.getState(), text, index));
+    this.state$.next(config.changeAnswer(this.state$.getValue(), text, index));
   }
 
   public onChangeCorrectAnswer(number: number): void {
-    this.state$.next(changeCorrectAnswer(this.getState(), number));
+    this.state$.next(config.changeCorrectAnswer(this.state$.getValue(), number));
   }
 
   public onChangeActualQuestion(text: string): void {
-    this.state$.next(changeActualQuestion(this.getState(), text));
+    this.state$.next(config.changeActualQuestion(this.state$.getValue(), text));
   }
 
   public onRemove(index: number): void {
-    this.state$.next(removeAnswer(this.getState(), index));
+    this.state$.next(config.removeAnswer(this.state$.getValue(), index));
   }
 
   public onAdd(): void {
-    this.state$.next(addAnswer(this.getState()));
+    this.state$.next(config.addAnswer(this.state$.getValue()));
   }
 
   public trackByFunc(i: number): number {
     return i;
   }
-
-  private getState(): State {
-    return this.state$.getValue();
-  }
-}
-
-function changeAnswer(state: State, text: string, index: number): State {
-  return {
-    ...state,
-    question: {
-      ...state.question,
-      answers: state.question.answers.map((item, i) => i === index ? text : item),
-    },
-  };
-}
-
-function changeCorrectAnswer(state: State, number: number): State {
-  return {
-    ...state,
-    question: {
-      ...state.question,
-      correctAnswer: number,
-    },
-  };
-}
-
-function changeActualQuestion(state: State, text: string): State {
-  return {
-    ...state,
-    question: {
-      ...state.question,
-      actualQuestion: text,
-    },
-  };
-}
-
-function removeAnswer(state: State, index: number): State {
-  const newAnswers = state.question.answers.filter((_, i) => i !== index);
-
-  return {
-    ...state,
-    isVisibleDeleteButton: newAnswers.length > MIN_ANSWERS_COUNT,
-    isVisibleAddButton: newAnswers.length < MAX_ANSWERS_COUNT,
-    question: {
-      ...state.question,
-      answers: newAnswers,
-      correctAnswer: state.question.correctAnswer + 1 > newAnswers.length ? 0 : state.question.correctAnswer,
-    },
-  };
-}
-
-function addAnswer(state: State): State {
-  const newAnswers = [ ...state.question.answers, ''];
-
-  return {
-    ...state,
-    isVisibleDeleteButton: newAnswers.length > MIN_ANSWERS_COUNT,
-    isVisibleAddButton: newAnswers.length < MAX_ANSWERS_COUNT,
-    question: {
-      ...state.question,
-      answers: newAnswers,
-    },
-  };
 }
