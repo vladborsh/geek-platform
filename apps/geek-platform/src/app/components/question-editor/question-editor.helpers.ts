@@ -7,8 +7,8 @@ const MIN_ANSWERS_COUNT = 3;
 export function initState(model: QuestionDto): State {
   return {
     question: model,
-    isVisibleAddButton: model.answers.length < MAX_ANSWERS_COUNT,
-    isVisibleDeleteButton: model.answers.length > MIN_ANSWERS_COUNT,
+    isVisibleAddButton: model?.answers.length < MAX_ANSWERS_COUNT,
+    isVisibleDeleteButton: model?.answers.length > MIN_ANSWERS_COUNT,
   };
 }
 

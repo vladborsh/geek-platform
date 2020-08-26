@@ -19,12 +19,11 @@ export interface State {
 export class QuestionEditorComponent implements OnInit, OnDestroy {
   @Input() model: QuestionDto;
   @Output() modelChange = new EventEmitter<QuestionDto>();
-  public state$: BehaviorSubject<State>;
+  public state$ = new BehaviorSubject<State>(initState(this.model));
 
   private onDestroy$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.state$ = new BehaviorSubject<State>(initState(this.model));
     this.state$.pipe(takeUntil(this.onDestroy$)).subscribe(data => this.modelChange.emit(data.question));
   }
 
