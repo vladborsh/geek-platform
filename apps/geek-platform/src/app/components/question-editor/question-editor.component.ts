@@ -17,9 +17,11 @@ export interface State {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuestionEditorComponent implements OnInit, OnDestroy {
-  @Input() model: QuestionDto;
+  @Input() set model(question: QuestionDto) {
+    this.state$.next(initState(question));
+  }
   @Output() modelChange = new EventEmitter<QuestionDto>();
-  public state$ = new BehaviorSubject<State>(initState(this.model));
+  public state$ = new BehaviorSubject<State>(null);
 
   private onDestroy$ = new Subject<void>();
 

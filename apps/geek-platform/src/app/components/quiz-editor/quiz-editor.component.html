@@ -1,0 +1,14 @@
+<ng-container *ngIf="state$ | async as state">
+  <div>
+    <ui-input
+      [ngModel]="state.quiz?.name"
+      class="space-bottom_5">
+    </ui-input>
+
+    <ui-card class="flex space-bottom_3" *ngFor="let question of state.quiz.questions; index as i; trackBy: trackByFunc">
+      <app-question-editor [model]="question"></app-question-editor>
+    </ui-card>
+
+    <ui-button class="space-top_5" label="Add" (click)="onAdd()"></ui-button>
+  </div>
+</ng-container>
