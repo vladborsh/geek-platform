@@ -1,8 +1,7 @@
-import { Location } from '@angular/common';
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AssignmentStatus, QuizAssignmentDto, QuizDto, UserDto } from '@geek-platform/api-interfaces';
-import { EMPTY, Observable, of, combineLatest } from 'rxjs';
+import { EMPTY, Observable, of, combineLatest, timer } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { QuizAssignmentService } from '../../services/quiz-assignment/quiz-assignment.service';
 import { UserService } from '../../services/user/user.service';
@@ -18,9 +17,9 @@ import { either } from '../../helpers/either.helper';
 })
 export class QuizRunComponent implements OnInit {
   public assignment$: Observable<QuizAssignmentInterface>;
+  public timer$: Observable<number>;
 
   constructor(
-    private location:  Location,
     private activatedRoute: ActivatedRoute,
     private quizAssignmentService: QuizAssignmentService,
     private userService: UserService,
@@ -31,10 +30,25 @@ export class QuizRunComponent implements OnInit {
     this.quizService.fetch$().subscribe();
     this.userService.fetch$().subscribe();
     this.quizAssignmentService.fetch$().subscribe();
-    this.assignment$ = this.getQuizAssignmentId$()
+    this.assignment$ = this.getAssignment$();
+    this.timer$ = this.getTimer$();
+  }
+
+  private getAssignment$(): Observable<QuizAssignmentInterface> {
+    return this.getQuizAssignmentId$()
       .pipe(
         switchMap(id => this.takeInProgress$(id)),
         switchMap(assignment => this.completeQuizAssignment$(assignment)),
+      );
+  }
+
+  private getTimer$(): Observable<number> {
+    return combineLatest([
+        this.assignment$,
+        timer(0, 1000),
+      ])
+      .pipe(
+        map(([assignment, time]) => assignment.createdDate + (time * 1000)),
       );
   }
 

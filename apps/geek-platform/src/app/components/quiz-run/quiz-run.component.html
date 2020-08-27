@@ -1,3 +1,6 @@
 <div *ngIf="assignment$ | async as assignment"> 
   {{ assignment.quiz.name }}
 </div>
+
+
+{{ timer$ | async | date : 'full' }}

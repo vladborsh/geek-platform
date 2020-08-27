@@ -9,6 +9,7 @@ header {
   right: 0;
   z-index: 9999;
   background-color: var(--nav-bg);
+  box-shadow: 0 calc(var(--space-atom) * 2) calc(var(--space-atom) * 4) 0 rgba(0,0,0,0.2);
 }
 
 .container {
@@ -20,33 +21,29 @@ ul {
   display: flex;
   list-style: none;
   padding: calc(var(--space-atom) * 4) 0;
-  font-size: 15px;
   margin: 0;
-  height: var(--nav-header-height);
-  overflow: hidden;
   box-sizing: border-box;
 }
 
 a {
-  color: var(--gray0);
+  color: var(--nav-color);
   text-align: center;
   text-decoration: none;
   font-size: 1rem;
   padding: calc(var(--space-atom) * 4) calc(var(--space-atom) * 4);
   margin-left: 0;
-
-  &:hover {
-    background-color: var(--gray5);
-  }
+  line-height: 1;
+  height: var(--nav-header-height);
+  box-sizing: border-box;
 
   &.active {
-    background-color: var(--nav-bg-selected);
-    color: var(--gray0);
+    border-bottom: 2px solid var(--nav-selected);
+    color: var(--nav-color);
     max-height: var(--nav-header-height);
   }
 
   &.icon {
-    color: var(--gray0);
+    color: var(--nav-color);
     display: block;
     position: absolute;
     text-align: center;

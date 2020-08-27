@@ -34,7 +34,8 @@ $geek-platform-theme: mat-light-theme((
 @include angular-material-theme($geek-platform-theme);
 
 :root {
-  --gray0: rgb(241, 241, 241);
+  --light: #eeeeee;
+  --gray0: #e4e4e4;
   --gray1: #dddddd;
   --gray2: #d1d1d1;
   --gray3: #cfcece;
@@ -58,7 +59,7 @@ $geek-platform-theme: mat-light-theme((
 }
 
 .light {
-  --bg: var(--gray0);
+  --bg: var(--light);
   --primary: var(--green);
   --primary2: var(--green2);
   --text: var(--gray6);
@@ -72,9 +73,10 @@ $geek-platform-theme: mat-light-theme((
   --input-border: var(--gray3);
   --input-fcs-border: var(--primary);
 
-  --nav-bg: var(--gray6);
-  --nav-bg-selected: var(--green2);
-  --nav-bg-hovered: var(--gray2);
+  --nav-bg: var(--light);
+  --nav-color: var(--gray6);
+  --nav-selected: var(--green2);
+  --nav-hovered: var(--gray2);
 
   --dropdown-bg: var(--gray0);
   --dropdown-bg-hov: var(--gray2);
