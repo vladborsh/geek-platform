@@ -1,1 +1,11 @@
 
+.drag-handle-element {
+  cursor: grab;
+  width: 20px;
+  position: relative;
+  top: 5px;
+}
+
+.container-list.cdk-drop-list-dragging .list-item:not(.cdk-drag-placeholder) {
+  transition: transform 350ms ease-in-out;
+}

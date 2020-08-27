@@ -6,9 +6,9 @@
       (ngModelChange)="onChangeQuizName($event)">
     </ui-input>
 
-    <div cdkDropList (cdkDropListDropped)="onDropQuestion($event)">
-      <ui-card cdkDrag class="flex space-bottom_3" *ngFor="let question of state.quiz.questions; index as i; trackBy: trackByFunc">
-        <i cdkDragHandle class="fa fa-arrows fa-lg cursor-grab space-bottom_3 drag-handle-element" aria-hidden="true"></i>
+    <div cdkDropList class="container-list" (cdkDropListDropped)="onDropQuestion($event)">
+      <ui-card cdkDrag class="list-item flex space-bottom_3" *ngFor="let question of state.quiz.questions; index as i; trackBy: trackByFunc">
+        <i cdkDragHandle class="fa fa-arrows fa-lg space-bottom_3 drag-handle-element" aria-hidden="true"></i>
         <app-question-editor [model]="question" (modelChange)="onChangeQuestion($event, i)"></app-question-editor>
         <ui-button class="space-top_5" label="Delete" *ngIf="state.isVisibleDeleteButton" (click)="onRemoveQuestion(i)"></ui-button>
       </ui-card>
