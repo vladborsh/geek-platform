@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnInit
 import { QuestionDto } from '@geek-platform/api-interfaces';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { initState, addAnswer, changeActualQuestion, changeAnswer, changeCorrectAnswer, removeAnswer } from './question-editor.helpers';
 
 export interface State {
@@ -56,5 +57,9 @@ export class QuestionEditorComponent implements OnInit, OnDestroy {
 
   public trackByFunc(i: number): number {
     return i;
+  }
+
+  public dropAnswer(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.state$.getValue().question.answers, event.previousIndex, event.currentIndex);
   }
 }
