@@ -7,7 +7,7 @@
     </ui-input>
 
     <div class="flex space-bottom_3" *ngFor="let answer of state.question.answers; index as i; trackBy: trackByFunc">
-      <ui-radio [item]="i" [name]="state.question._id" [ngModel]="state.question.correctAnswer" (ngModelChange)="onChangeCorrectAnswer($event)"></ui-radio>
+      <ui-radio [item]="i" [name]="state.question.actualQuestion" [ngModel]="state.question.correctAnswer" (ngModelChange)="onChangeCorrectAnswer($event)"></ui-radio>
       <ui-input class="full-width" [ngModel]="answer" (ngModelChange)="onChangeAnswer($event, i)"></ui-input>
       <ui-button class="space-left_5" *ngIf="state.isVisibleDeleteButton" label="Delete" (click)="onRemove(i)"></ui-button>
     </div>

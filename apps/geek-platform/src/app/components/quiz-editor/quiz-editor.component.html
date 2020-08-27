@@ -8,9 +8,10 @@
 
     <ui-card class="flex space-bottom_3" *ngFor="let question of state.quiz.questions; index as i; trackBy: trackByFunc">
       <app-question-editor [model]="question" (modelChange)="onChangeQuestion($event, i)"></app-question-editor>
-      <ui-button class="space-top_5" label="Delete" (click)="onRemoveQuestion(i)"></ui-button>
+      <ui-button class="space-top_5" label="Delete" *ngIf="state.isVisibleDeleteButton" (click)="onRemoveQuestion(i)"></ui-button>
     </ui-card>
 
-    <ui-button class="space-top_5" label="Add" (click)="onAddQuestion()"></ui-button>
+    <ui-button class="space-top_5" label="Add" *ngIf="state.isVisibleAddButton" (click)="onAddQuestion()"></ui-button>
+    <ui-button class="space-top_5" label="Save" (click)="onSaveQuiz()"></ui-button>
   </div>
 </ng-container>
