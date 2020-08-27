@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { QuizDto, QuestionDto } from '@geek-platform/api-interfaces';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { BehaviorSubject } from 'rxjs';
 import { QuizService } from '../../services/quiz/quiz.service';
 import {
@@ -61,5 +62,9 @@ export class QuizEditorComponent {
 
   public trackByFunc(i: number): number {
     return i;
+  }
+
+  public dropQuestion(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.state$.getValue().quiz.questions, event.previousIndex, event.currentIndex);
   }
 }

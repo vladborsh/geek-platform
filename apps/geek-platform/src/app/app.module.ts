@@ -14,6 +14,7 @@ import { EditorPageModule } from './components/editor-page/editor-page.module';
 import { QuizAssignmentPageModule } from './components/quiz-assignment-page/quiz-assignment-page.module';
 import { QuizAssignmentCreatePageModule } from './components/quiz-assignment-create-page/quiz-assignment-create-page.module';
 import { QuizRunModule } from './components/quiz-run/quiz-run.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,7 @@ import { QuizRunModule } from './components/quiz-run/quiz-run.module';
     QuizAssignmentPageModule,
     QuizAssignmentCreatePageModule,
     QuizRunModule,
+    NoopAnimationsModule,
   ],
   providers: [HomeGuard],
   bootstrap: [AppComponent],
