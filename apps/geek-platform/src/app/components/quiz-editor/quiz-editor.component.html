@@ -14,7 +14,10 @@
       </ui-card>
     </div>
 
-    <ui-button class="space-top_5" label="Add" *ngIf="state.isVisibleAddButton" (click)="onAddQuestion()"></ui-button>
-    <ui-button class="space-top_5" label="Save" (click)="onSaveQuiz()"></ui-button>
+    <div class="flex">
+      <ui-button class="space-top_5" label="Add" *ngIf="state.isVisibleAddButton" (click)="onAddQuestion()"></ui-button>
+      <ui-button class="space-top_5" label="Save" (click)="onSaveQuiz()"></ui-button>
+    </div>
+
   </div>
 </ng-container>

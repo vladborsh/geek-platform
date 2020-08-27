@@ -11,10 +11,6 @@ export const HOME_NAVIGATION: NavigationInterface[] = [
     route: `/${RouteUrls.HOME}/${RouteUrls.QUIZ}`,
   },
   {
-    label: 'Editor',
-    route: `/${RouteUrls.HOME}/${RouteUrls.EDITOR}`,
-  },
-  {
     label: 'Assignment',
     route: `/${RouteUrls.HOME}/${RouteUrls.QUIZ_ASSIGNMENT}`,
   },
