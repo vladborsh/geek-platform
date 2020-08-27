@@ -6,7 +6,7 @@
       (ngModelChange)="onChangeActualQuestion($event)">
     </ui-input>
 
-    <div cdkDropList (cdkDropListDropped)="dropAnswer($event)">
+    <div cdkDropList (cdkDropListDropped)="onDropAnswer($event)">
       <div cdkDrag class="flex space-bottom_3" *ngFor="let answer of state.question.answers; index as i; trackBy: trackByFunc">
         <ui-radio [item]="i" [name]="state.question.actualQuestion" [ngModel]="state.question.correctAnswer" (ngModelChange)="onChangeCorrectAnswer($event)"></ui-radio>
         <ui-input class="full-width" [ngModel]="answer" (ngModelChange)="onChangeAnswer($event, i)"></ui-input>

@@ -1,9 +1,25 @@
-import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { QuestionDto } from '@geek-platform/api-interfaces';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { initState, addAnswer, changeActualQuestion, changeAnswer, changeCorrectAnswer, removeAnswer } from './question-editor.helpers';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import {
+  initState,
+  addAnswer,
+  changeActualQuestion,
+  changeAnswer,
+  changeCorrectAnswer,
+  removeAnswer,
+  dropAnswer,
+} from './question-editor.helpers';
 
 export interface State {
   question: QuestionDto;
@@ -12,10 +28,10 @@ export interface State {
 }
 
 @Component({
-    selector: 'app-question-editor',
-    templateUrl: './question-editor.component.html',
-    styleUrls: ['./question-editor.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-question-editor',
+  templateUrl: './question-editor.component.html',
+  styleUrls: ['./question-editor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuestionEditorComponent implements OnInit, OnDestroy {
   @Input() set model(question: QuestionDto) {
@@ -27,7 +43,9 @@ export class QuestionEditorComponent implements OnInit, OnDestroy {
   private onDestroy$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.state$.pipe(takeUntil(this.onDestroy$)).subscribe(data => this.modelChange.emit(data.question));
+    this.state$
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(data => this.modelChange.emit(data.question));
   }
 
   ngOnDestroy(): void {
@@ -59,7 +77,7 @@ export class QuestionEditorComponent implements OnInit, OnDestroy {
     return i;
   }
 
-  public dropAnswer(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.state$.getValue().question.answers, event.previousIndex, event.currentIndex);
+  public onDropAnswer(event: CdkDragDrop<string[]>): void {
+    this.state$.next(dropAnswer(this.state$.getValue(), event.previousIndex, event.currentIndex));
   }
 }

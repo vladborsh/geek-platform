@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { QuizDto, QuestionDto } from '@geek-platform/api-interfaces';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { BehaviorSubject } from 'rxjs';
 import { QuizService } from '../../services/quiz/quiz.service';
 import {
@@ -9,6 +9,7 @@ import {
   removeQuestion,
   generateState,
   addQuestion,
+  dropQuestion,
 } from './quiz-editor.helpers';
 
 export interface State {
@@ -64,7 +65,7 @@ export class QuizEditorComponent {
     return i;
   }
 
-  public dropQuestion(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.state$.getValue().quiz.questions, event.previousIndex, event.currentIndex);
+  public onDropQuestion(event: CdkDragDrop<string[]>): void {
+    this.state$.next(dropQuestion(this.state$.getValue(), event.previousIndex, event.currentIndex));
   }
 }

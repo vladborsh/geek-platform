@@ -1,5 +1,6 @@
 import { State } from './quiz-editor.component';
 import { QuestionDto } from '@geek-platform/api-interfaces';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 const MIN_COUNT_QUESTIONS = 1;
 const MAX_COUNT_QUESTIONS = 50;
@@ -73,6 +74,19 @@ export function removeQuestion(state: State, index: number): State {
   return {
     isVisibleDeleteButton: newQuestions.length > MIN_COUNT_QUESTIONS,
     isVisibleAddButton: newQuestions.length < MAX_COUNT_QUESTIONS,
+    quiz: {
+      ...state.quiz,
+      questions: newQuestions,
+    },
+  };
+}
+
+export function dropQuestion(state: State, previousIndex: number, currentIndex: number): State {
+  const newQuestions = [...state.quiz.questions];
+  moveItemInArray(newQuestions, previousIndex, currentIndex);
+
+  return {
+    ...state,
     quiz: {
       ...state.quiz,
       questions: newQuestions,
