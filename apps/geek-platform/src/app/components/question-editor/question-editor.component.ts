@@ -20,12 +20,7 @@ import {
   removeAnswer,
   dropAnswer,
 } from './question-editor.helpers';
-
-export interface State {
-  question: QuestionDto;
-  isVisibleAddButton: boolean;
-  isVisibleDeleteButton: boolean;
-}
+import { State } from './question-editor.interfaces';
 
 @Component({
   selector: 'app-question-editor',

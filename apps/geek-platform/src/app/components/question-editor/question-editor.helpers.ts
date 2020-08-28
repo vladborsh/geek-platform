@@ -1,5 +1,5 @@
 import { QuestionDto } from '@geek-platform/api-interfaces';
-import { State } from './question-editor.component';
+import { State } from './question-editor.interfaces';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 const MAX_ANSWERS_COUNT = 6;

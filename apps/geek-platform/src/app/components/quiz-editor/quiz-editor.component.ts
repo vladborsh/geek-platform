@@ -13,16 +13,7 @@ import {
   dropQuestion,
 } from './quiz-editor.helpers';
 import { RouteUrls } from '../../enums/route.enum';
-
-export interface State {
-  isVisibleAddButton: boolean;
-  isVisibleDeleteButton: boolean;
-  quiz: {
-    _id?: string;
-    name: string;
-    questions: Partial<QuestionDto>[];
-  };
-}
+import { State } from './quiz-editor.interfaces';
 
 @Component({
   selector: 'app-quiz-editor',

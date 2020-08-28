@@ -1,6 +1,6 @@
-import { State } from './quiz-editor.component';
 import { QuestionDto } from '@geek-platform/api-interfaces';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { State } from './quiz-editor.interfaces';
 
 const MIN_COUNT_QUESTIONS = 1;
 const MAX_COUNT_QUESTIONS = 50;
