@@ -1,13 +1,16 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AssignmentStatus, QuizAssignmentDto, QuizDto, UserDto } from '@geek-platform/api-interfaces';
-import { EMPTY, Observable, of, combineLatest, timer } from 'rxjs';
+import { EMPTY, Observable, of, combineLatest, timer, BehaviorSubject } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
+import { UiSizes } from '@geek-platform/ui';
 import { QuizAssignmentService } from '../../services/quiz-assignment/quiz-assignment.service';
 import { UserService } from '../../services/user/user.service';
 import { QuizService } from '../../services/quiz/quiz.service';
 import { QuizAssignmentInterface } from '../quiz-assignment-page/config/quiz-assignment.interface';
 import { either } from '../../helpers/either.helper';
+import { State } from './config/quiz-run.interface';
+import { generateState, saveSelectedAnswer, saveSubmittedAnswer } from './quiz-run.helpers';
 
 @Component({
   selector: 'app-quiz-run',
@@ -18,6 +21,9 @@ import { either } from '../../helpers/either.helper';
 export class QuizRunComponent implements OnInit {
   public assignment$: Observable<QuizAssignmentInterface>;
   public timer$: Observable<number>;
+  public quizNameSize = UiSizes.MEDIUM;
+  public currentQuestionIndex = 0;
+  public state$: BehaviorSubject<State> = new BehaviorSubject(generateState());
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -32,6 +38,14 @@ export class QuizRunComponent implements OnInit {
     this.quizAssignmentService.fetch$().subscribe();
     this.assignment$ = this.getAssignment$();
     this.timer$ = this.getTimer$();
+  }
+
+  public onSaveSelectedAnswer(number: number, id: string): void {
+    this.state$.next(saveSelectedAnswer(this.state$.getValue(), number, id));
+  }
+
+  public onSaveSubmittedAnswer(number: number, id: string): void {
+    this.state$.next(saveSubmittedAnswer(this.state$.getValue(), number, id));
   }
 
   private getAssignment$(): Observable<QuizAssignmentInterface> {

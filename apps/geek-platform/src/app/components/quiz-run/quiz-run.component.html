@@ -1,6 +1,11 @@
-<div *ngIf="assignment$ | async as assignment"> 
-  {{ assignment.quiz.name }}
+{{ timer$ | async | date : 'full' }}
+
+<div *ngIf="assignment$ | async as assignment">
+  <ui-header [size]="quizNameSize" class="space-bottom_5"> {{ assignment.quiz.name }}</ui-header>
+  <app-question-card
+    [question]="assignment.quiz.questions[currentQuestionIndex]"
+    (selected)="onSaveSelectedAnswer($event, assignment.quiz.questions[currentQuestionIndex]._id)"
+    (submitted)="onSaveSubmittedAnswer($event, assignment.quiz.questions[currentQuestionIndex]._id)">
+  </app-question-card>
 </div>
 
-
-{{ timer$ | async | date : 'full' }}
