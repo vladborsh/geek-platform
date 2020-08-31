@@ -22,8 +22,8 @@ export class QuizRunComponent implements OnInit {
   public assignment$: Observable<QuizAssignmentInterface>;
   public timer$: Observable<number>;
   public quizNameSize = UiSizes.MEDIUM;
-  public currentQuestionIndex = 0;
   public state$: BehaviorSubject<State> = new BehaviorSubject(generateState());
+  private questionsCount = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -38,6 +38,7 @@ export class QuizRunComponent implements OnInit {
     this.quizAssignmentService.fetch$().subscribe();
     this.assignment$ = this.getAssignment$();
     this.timer$ = this.getTimer$();
+    this.assignment$.subscribe(data => this.questionsCount = data.quiz.questions.length);
   }
 
   public onSaveSelectedAnswer(number: number, id: string): void {
@@ -45,7 +46,7 @@ export class QuizRunComponent implements OnInit {
   }
 
   public onSaveSubmittedAnswer(number: number, id: string): void {
-    this.state$.next(saveSubmittedAnswer(this.state$.getValue(), number, id));
+    this.state$.next(saveSubmittedAnswer(this.state$.getValue(), number, id, this.questionsCount));
   }
 
   private getAssignment$(): Observable<QuizAssignmentInterface> {

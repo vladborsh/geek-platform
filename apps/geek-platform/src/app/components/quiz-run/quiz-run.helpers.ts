@@ -3,7 +3,7 @@ import { State } from './config/quiz-run.interface';
 export function generateState(): State {
   return {
     currentQuestionIndex: 0,
-    isTestFinished: false,
+    isQuizFinished: false,
     questions: {},
   };
 }
@@ -21,10 +21,13 @@ export function saveSelectedAnswer(state: State, number: number, id: string): St
   };
 }
 
-export function saveSubmittedAnswer(state: State, number: number, id: string): State {
+export function saveSubmittedAnswer(state: State, number: number, id: string, questionCount: number): State {
+  const currentQuestionIndex = state.currentQuestionIndex + 1 === questionCount ? state.currentQuestionIndex : state.currentQuestionIndex + 1;
+
   return {
     ...state,
-    currentQuestionIndex: state.currentQuestionIndex + 1,
+    isQuizFinished: state.currentQuestionIndex + 1 === questionCount,
+    currentQuestionIndex,
     questions: {
       ...state.questions,
       [id]: {

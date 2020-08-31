@@ -5,6 +5,6 @@ interface Answer {
 
 export interface State {
   currentQuestionIndex: number;
-  isTestFinished: boolean;
+  isQuizFinished: boolean;
   questions: Record<string, Answer>;
 }
