@@ -1,4 +1,7 @@
-{{ timer$ | async | date : 'full' }}
+<div class="flex header-timer">
+  <ui-header [size]="quizNameSize" class="space-bottom_5">{{ timer$ | async | formatTimerDown }}</ui-header>
+</div>
+
 
 <div *ngIf="assignment$ | async as assignment">
   <ui-header [size]="quizNameSize" class="space-bottom_5"> {{ assignment.quiz.name }}</ui-header>
@@ -10,3 +13,4 @@
   </app-question-card>
 </div>
 
+<ui-button *ngIf="state$.getValue().isQuizFinished" label="Save and finish"></ui-button>

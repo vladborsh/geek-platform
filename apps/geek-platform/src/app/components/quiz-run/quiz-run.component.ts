@@ -39,6 +39,15 @@ export class QuizRunComponent implements OnInit {
     this.assignment$ = this.getAssignment$();
     this.timer$ = this.getTimer$();
     this.assignment$.subscribe(data => this.questionsCount = data.quiz.questions.length);
+
+    this.timer$.subscribe(tick => {
+      if (tick <= 0) {
+      this.state$.next({
+        ...this.state$.getValue(),
+        isQuizFinished: true,
+      });
+    }
+    });
   }
 
   public onSaveSelectedAnswer(number: number, id: string): void {
@@ -63,7 +72,7 @@ export class QuizRunComponent implements OnInit {
         timer(0, 1000),
       ])
       .pipe(
-        map(([assignment, time]) => assignment.createdDate + (time * 1000)),
+        map(([assignment]) => assignment.timeLimitMs - (Date.now() - assignment.startTime)),
       );
   }
 
