@@ -1,16 +1,20 @@
 <ng-container *ngIf="state$ | async as state">
-  <div>
+  <div *ngIf="state.question">
     <ui-input
-      class="space-bottom_5"
       [ngModel]="state.question.actualQuestion"
-      (ngModelChange)="onChangeActualQuestion($event)">
+      (ngModelChange)="onChangeActualQuestion($event)"
+      class="space-bottom_5">
     </ui-input>
 
-    <div class="flex space-bottom_3" *ngFor="let answer of state.question.answers; index as i; trackBy: trackByFunc">
-      <ui-radio [item]="i" [ngModel]="state.question.correctAnswer" (ngModelChange)="onChangeCorrectAnswer($event)"></ui-radio>
-      <ui-input class="full-width" [ngModel]="answer" (ngModelChange)="onChangeAnswer($event, i)"></ui-input>
-      <ui-button class="space-left_5" *ngIf="state.isVisibleDeleteButton" label="Delete" (click)="onRemove(i)"></ui-button>
+    <div (cdkDropListDropped)="onDropAnswer($event)" cdkDropList class="container-list">
+      <div *ngFor="let answer of state.question.answers; index as i; trackBy: trackByFunc" cdkDrag class="list-item flex space-bottom_3">
+        <i cdkDragHandle class="fa fa-arrows space-right_3 drag-handle-element" aria-hidden="true"></i>
+        <ui-radio [item]="i" [name]="state.question.actualQuestion" [ngModel]="state.question.correctAnswer" (ngModelChange)="onChangeCorrectAnswer($event)"></ui-radio>
+        <ui-input [ngModel]="answer" (ngModelChange)="onChangeAnswer($event, i)" class="full-width"></ui-input>
+        <ui-button *ngIf="state.isVisibleDeleteButton" label="Delete" (click)="onRemove(i)" class="space-left_5"></ui-button>
+      </div>
     </div>
+
     <ui-button *ngIf="state.isVisibleAddButton" label="Add" (click)="onAdd()"></ui-button>
   </div>
 </ng-container>

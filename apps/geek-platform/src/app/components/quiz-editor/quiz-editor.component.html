@@ -1,0 +1,23 @@
+<ng-container *ngIf="state$ | async as state">
+  <div>
+    <ui-input
+      [ngModel]="state.quiz.name"
+      (ngModelChange)="onChangeQuizName($event)"
+      class="space-bottom_5">
+    </ui-input>
+
+    <div (cdkDropListDropped)="onDropQuestion($event)" cdkDropList class="container-list">
+      <ui-card *ngFor="let question of state.quiz.questions; index as i; trackBy: trackByFunc" cdkDrag class="list-item flex space-bottom_3">
+        <i cdkDragHandle class="fa fa-arrows fa-lg space-bottom_3 drag-handle-element" aria-hidden="true"></i>
+        <app-question-editor [model]="question" (modelChange)="onChangeQuestion($event, i)"></app-question-editor>
+        <ui-button *ngIf="state.isVisibleDeleteButton" label="Delete" (click)="onRemoveQuestion(i)" class="space-top_5"></ui-button>
+      </ui-card>
+    </div>
+
+    <div class="flex">
+      <ui-button *ngIf="state.isVisibleAddButton" label="Add" (click)="onAddQuestion()" class="space-top_5"></ui-button>
+      <ui-button label="Save" (click)="onSaveQuiz()" class="space-top_5"></ui-button>
+    </div>
+
+  </div>
+</ng-container>

@@ -1,9 +1,10 @@
-
 .drag-handle-element {
   cursor: grab;
-  width: 20px;
-  position: relative;
-  top: 5px;
+  width: 30px;
+}
+
+.cdk-drag-preview {
+  background: var(--bg);
 }
 
 .container-list.cdk-drop-list-dragging .list-item:not(.cdk-drag-placeholder) {

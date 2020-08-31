@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EditorPageComponent } from './editor-page.component';
 import { ButtonModule } from '@geek-platform/ui';
-import { QuestionEditorModule } from '../question-editor/question-editor.module';
+import { EditorPageComponent } from './editor-page.component';
+import { QuizEditorModule } from '../quiz-editor/quiz-editor.module';
 
 @NgModule({
   declarations: [EditorPageComponent],
-  imports: [CommonModule, ButtonModule, QuestionEditorModule],
+  imports: [CommonModule, ButtonModule, QuizEditorModule],
   exports: [EditorPageComponent],
 })
 export class EditorPageModule {}

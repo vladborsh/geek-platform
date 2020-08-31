@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-editor-page',
@@ -7,10 +6,4 @@ import { Location } from '@angular/common';
   styleUrls: ['./editor-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditorPageComponent {
-  constructor(private location: Location) {}
-
-  public goBack(): void {
-    this.location.back();
-  }
-}
+export class EditorPageComponent {}

@@ -1,5 +1,6 @@
 import { QuestionDto } from '@geek-platform/api-interfaces';
-import { State } from './question-editor.component';
+import { State } from './question-editor.interfaces';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 const MAX_ANSWERS_COUNT = 6;
 const MIN_ANSWERS_COUNT = 3;
@@ -64,6 +65,19 @@ export function addAnswer(state: State): State {
     ...state,
     isVisibleDeleteButton: newAnswers.length > MIN_ANSWERS_COUNT,
     isVisibleAddButton: newAnswers.length < MAX_ANSWERS_COUNT,
+    question: {
+      ...state.question,
+      answers: newAnswers,
+    },
+  };
+}
+
+export function dropAnswer(state: State, previousIndex: number, currentIndex: number): State {
+  const newAnswers = [...state.question.answers];
+  moveItemInArray(newAnswers, previousIndex, currentIndex);
+
+  return {
+    ...state,
     question: {
       ...state.question,
       answers: newAnswers,

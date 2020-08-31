@@ -4,7 +4,7 @@ import { UiSizes } from '../../enums/ui-sizes.enum';
 @Component({
     selector: 'ui-header',
     templateUrl: './header.component.html',
-    styleUrls: ['./header.component.less'],
+    styleUrls: ['./header.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {

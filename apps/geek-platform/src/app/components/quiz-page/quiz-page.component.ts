@@ -45,6 +45,10 @@ export class QuizPageComponent implements OnInit {
     this.quizAssignmentService.fetch$().subscribe();
   }
 
+  public onAddQuiz(): void {
+    this.router.navigate([`${RouteUrls.HOME}/${RouteUrls.EDITOR}`]);
+  }
+
   public runQuiz(quizId: string): void {
     this.runQuizAssignment$(quizId)
       .subscribe(quizAssignmentId =>

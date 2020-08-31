@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { EditorPageComponent } from './editor-page.component';
 import { EditorPageModule } from './editor-page.module';
@@ -9,7 +11,7 @@ describe('EditorPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [EditorPageModule],
+      imports: [EditorPageModule, HttpClientTestingModule, RouterTestingModule],
     }).compileComponents();
   }));
 

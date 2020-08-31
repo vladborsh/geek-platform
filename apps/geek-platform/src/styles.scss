@@ -21,6 +21,8 @@
   --nav-header-space: 80px;
   --container-width: 700px;
   --nav-header-height: calc(var(--space-atom) * 8 + 1rem);
+
+  --drag-animating-transition: transform var(--transition) ease-in-out;
 }
 
 .light {
@@ -100,4 +102,12 @@ $spaces: 1 2 3 4 5;
 
 .full-width {
   width: 100%;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: var(--drag-animating-transition);
 }

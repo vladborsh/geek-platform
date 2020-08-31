@@ -7,6 +7,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 9999;
   background-color: var(--nav-bg);
   box-shadow: 0 calc(var(--space-atom) * 2) calc(var(--space-atom) * 4) 0 rgba(0,0,0,0.2);
 }
