@@ -21,19 +21,19 @@ export class QuizAssignmentController {
   @UseGuards(AuthGuard())
   public startById$(
     @Param('id') id: string,
-    @Body() quizAssignmentPickDto: Pick<QuizAssignmentDto, 'answers'>,
     @Request() req: { user: AuthDataDto },
   ): Observable<QuizAssignmentDto> {
-    return this.quizAssignmentDomainService.start$(id, quizAssignmentPickDto, req.user);
+    return this.quizAssignmentDomainService.start$(id, req.user);
   }
 
   @Post(':id/finish')
   @UseGuards(AuthGuard())
   public finishById$(
     @Param('id') id: string,
+    @Body() quizAssignmentPickDto: Pick<QuizAssignmentDto, 'answers'>,
     @Request() req: { user: AuthDataDto },
   ): Observable<QuizAssignmentDto> {
-    return this.quizAssignmentDomainService.finish$(id, req.user);
+    return this.quizAssignmentDomainService.finish$(id, quizAssignmentPickDto, req.user);
   }
 
   @Put(':id')
