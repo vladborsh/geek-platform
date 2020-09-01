@@ -12,6 +12,7 @@ export const quizAssignmentSchema = new Schema(
     startTime: Number,
     endTime: Number,
     status: String,
+    answers: [Number],
   }),
 );
 

@@ -9,5 +9,6 @@ export function createQuizAssignmentDefaults(): Create<QuizAssignmentDto> {
     startTime: null,
     endTime: null,
     status: null,
+    answers: null,
   };
 }
