@@ -68,6 +68,20 @@ export class QuizAssignmentDomainService {
 
   public start$(
     id: string,
+    { role: userRole, id: userId }: AuthDataDto,
+  ): Observable<QuizAssignmentDto> {
+    return this.quizAssignmentService.findById$(id)
+      .pipe(
+        switchMap((assignment: QuizAssignmentData) => this.quizAssignmentService.update$({
+          ...assignment.toObject(),
+          status: AssignmentStatus.IN_PROGRESS,
+          startTime: Date.now(),
+        })),
+      );
+  }
+
+  public finish$(
+    id: string,
     { answers }: Pick<QuizAssignmentDto, 'answers'>,
     { role: userRole, id: userId }: AuthDataDto,
   ): Observable<QuizAssignmentDto> {
@@ -76,17 +90,6 @@ export class QuizAssignmentDomainService {
         switchMap((assignment: QuizAssignmentData) => this.quizAssignmentService.update$({
           ...assignment.toObject(),
           answers,
-          status: AssignmentStatus.IN_PROGRESS,
-          startTime: Date.now(),
-        })),
-      );
-  }
-
-  public finish$(id: string, { role: userRole, id: userId }: AuthDataDto): Observable<QuizAssignmentDto> {
-    return this.quizAssignmentService.findById$(id)
-      .pipe(
-        switchMap((assignment: QuizAssignmentData) => this.quizAssignmentService.update$({
-          ...assignment.toObject(),
           status: AssignmentStatus.DONE,
           endTime: Date.now(),
         })),
