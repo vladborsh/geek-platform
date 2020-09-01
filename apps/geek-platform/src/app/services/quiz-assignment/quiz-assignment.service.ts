@@ -46,8 +46,8 @@ export class QuizAssignmentService {
     );
   }
 
-  public stop$(id: string): Observable<QuizAssignmentDto> {
-    return this.httpBackendService.post$<{}>(`${this.url}/${id}/stop`, {}).pipe(
+  public finish$(id: string, answers: number[]): Observable<QuizAssignmentDto> {
+    return this.httpBackendService.post$<{}>(`${this.url}/${id}/finish`, { answers }).pipe(
       tap((res: QuizAssignmentDto) => {
         this._state.next({ ...this._state.getValue(), [res._id]: res });
       }),
