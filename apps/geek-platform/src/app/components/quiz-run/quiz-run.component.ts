@@ -39,7 +39,9 @@ export class QuizRunComponent implements OnInit, OnDestroy {
     this.userService.fetch$().subscribe();
     this.quizAssignmentService.fetch$().subscribe();
     this.assignment$ = this.getAssignment$();
+
     this.timer$ = this.getTimer$();
+
     this.questionsCount$ = this.assignment$
       .pipe(
         filter(data => !!data && !!data.quiz),
@@ -49,11 +51,20 @@ export class QuizRunComponent implements OnInit, OnDestroy {
     this.timer$
       .pipe(
         filter(tick => tick <= 0),
-        withLatestFrom(this.state$),
+        switchMap(() => this.state$),
         take(1),
         takeUntil(this.onDestroy$),
       )
-      .subscribe(([tick, state]: [number, State]) => this.state$.next({ ...state, isQuizFinished: true }));
+      .subscribe(state => this.state$.next({ ...state, isQuizFinished: true }));
+
+    this.state$
+      .pipe(
+        filter(state => state.isQuizFinished),
+        switchMap(() => this.assignment$),
+        switchMap(assignment => this.quizAssignmentService.stop$(assignment._id)),
+        take(1),
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
@@ -76,9 +87,7 @@ export class QuizRunComponent implements OnInit, OnDestroy {
       );
   }
 
-  public submitQuizAnswers(): void {
-
-  }
+  public submitQuizAnswers(): void {}
 
   private getAssignment$(): Observable<QuizAssignmentInterface> {
     return this.getQuizAssignmentId$()
@@ -94,6 +103,7 @@ export class QuizRunComponent implements OnInit, OnDestroy {
         timer(0, 1000),
       ])
       .pipe(
+        filter(([assignment]) => assignment.startTime !== null),
         map(([assignment]) => assignment.timeLimitMs - (Date.now() - assignment.startTime)),
       );
   }

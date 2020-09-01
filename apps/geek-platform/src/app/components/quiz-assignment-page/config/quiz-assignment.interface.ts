@@ -1,6 +1,6 @@
-import { QuizDto, UserDto } from '@geek-platform/api-interfaces';
+import { QuizDto, UserDto, Identifiable } from '@geek-platform/api-interfaces';
 
-export interface QuizAssignmentInterface {
+export interface QuizAssignmentInterface extends Identifiable {
   createdDate: number;
   assignedTo: UserDto;
   quiz: QuizDto;
