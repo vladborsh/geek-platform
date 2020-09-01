@@ -21,12 +21,12 @@ export function saveSelectedAnswer(state: State, number: number, id: string): St
   };
 }
 
-export function saveSubmittedAnswer(state: State, number: number, id: string, questionCount: number): State {
-  const currentQuestionIndex = state.currentQuestionIndex + 1 === questionCount ? state.currentQuestionIndex : state.currentQuestionIndex + 1;
+export function saveSubmittedAnswer(state: State, number: number, id: string, questionsCount: number): State {
+  const currentQuestionIndex = state.currentQuestionIndex + 1 === questionsCount ? state.currentQuestionIndex : state.currentQuestionIndex + 1;
 
   return {
     ...state,
-    isQuizFinished: state.currentQuestionIndex + 1 === questionCount,
+    isQuizFinished: state.currentQuestionIndex + 1 === questionsCount,
     currentQuestionIndex,
     questions: {
       ...state.questions,

@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AssignmentStatus, QuizAssignmentDto, QuizDto, UserDto } from '@geek-platform/api-interfaces';
-import { EMPTY, Observable, of, combineLatest, timer, BehaviorSubject } from 'rxjs';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { EMPTY, Observable, of, combineLatest, timer, BehaviorSubject, Subject } from 'rxjs';
+import { filter, map, switchMap, take, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { UiSizes } from '@geek-platform/ui';
 import { QuizAssignmentService } from '../../services/quiz-assignment/quiz-assignment.service';
 import { UserService } from '../../services/user/user.service';
@@ -18,12 +18,14 @@ import { generateState, saveSelectedAnswer, saveSubmittedAnswer } from './quiz-r
   styleUrls: ['./quiz-run.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuizRunComponent implements OnInit {
+export class QuizRunComponent implements OnInit, OnDestroy {
   public assignment$: Observable<QuizAssignmentInterface>;
   public timer$: Observable<number>;
-  public quizNameSize = UiSizes.MEDIUM;
+  public headerSizeMedium = UiSizes.MEDIUM;
+  public headerSizeSmall = UiSizes.SMALL;
   public state$: BehaviorSubject<State> = new BehaviorSubject(generateState());
-  private questionsCount = 0;
+  private questionsCount$: Observable<number>;
+  private onDestroy$ = new Subject<void>();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -38,16 +40,25 @@ export class QuizRunComponent implements OnInit {
     this.quizAssignmentService.fetch$().subscribe();
     this.assignment$ = this.getAssignment$();
     this.timer$ = this.getTimer$();
-    this.assignment$.subscribe(data => this.questionsCount = data.quiz.questions.length);
+    this.questionsCount$ = this.assignment$
+      .pipe(
+        filter(data => !!data && !!data.quiz),
+        map(data => data.quiz.questions.length),
+      );
 
-    this.timer$.subscribe(tick => {
-      if (tick <= 0) {
-      this.state$.next({
-        ...this.state$.getValue(),
-        isQuizFinished: true,
-      });
-    }
-    });
+    this.timer$
+      .pipe(
+        filter(tick => tick <= 0),
+        withLatestFrom(this.state$),
+        take(1),
+        takeUntil(this.onDestroy$),
+      )
+      .subscribe(([tick, state]: [number, State]) => this.state$.next({ ...state, isQuizFinished: true }));
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
   public onSaveSelectedAnswer(number: number, id: string): void {
@@ -55,7 +66,18 @@ export class QuizRunComponent implements OnInit {
   }
 
   public onSaveSubmittedAnswer(number: number, id: string): void {
-    this.state$.next(saveSubmittedAnswer(this.state$.getValue(), number, id, this.questionsCount));
+    this.questionsCount$
+      .pipe(
+        withLatestFrom(this.state$),
+        take(1),
+      )
+      .subscribe(
+        ([count, state]) => this.state$.next(saveSubmittedAnswer(state, number, id, count)),
+      );
+  }
+
+  public submitQuizAnswers(): void {
+
   }
 
   private getAssignment$(): Observable<QuizAssignmentInterface> {
