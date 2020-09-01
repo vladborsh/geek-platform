@@ -9,5 +9,6 @@ export interface QuizAssignmentDto extends Identifiable {
     dueDate: number;
     status: AssignmentStatus;
     startTime: number;
+    answers: number[];
     endTime: number;
 }
