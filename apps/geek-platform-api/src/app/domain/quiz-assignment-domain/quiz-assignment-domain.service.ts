@@ -83,7 +83,7 @@ export class QuizAssignmentDomainService {
     { answers }: Pick<QuizAssignmentDto, 'answers'>,
     { role: userRole, id: userId }: AuthDataDto,
   ): Observable<QuizAssignmentDto> {
-    const patch = { status: AssignmentStatus.DONE, endTime: Date.now() };
+    const patch = { status: AssignmentStatus.DONE, answers, endTime: Date.now() };
 
     return this.quizAssignmentService.update$({ _id: id, ...patch })
       .pipe(
