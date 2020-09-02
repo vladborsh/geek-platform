@@ -4,7 +4,7 @@ import {
   QuizAssignmentData,
 } from '../../data-access/quiz-assignment/quiz-assignment.service';
 import { QuizAssignmentDto, Update, RoleType, AuthDataDto, AssignmentStatus } from '@geek-platform/api-interfaces';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import {
   PermissionModel,
@@ -70,13 +70,11 @@ export class QuizAssignmentDomainService {
     id: string,
     { role: userRole, id: userId }: AuthDataDto,
   ): Observable<QuizAssignmentDto> {
-    return this.quizAssignmentService.findById$(id)
+    const patch = { status: AssignmentStatus.IN_PROGRESS, startTime: Date.now() };
+
+    return this.quizAssignmentService.update$({ _id: id, ...patch })
       .pipe(
-        switchMap((assignment: QuizAssignmentData) => this.quizAssignmentService.update$({
-          ...assignment.toObject(),
-          status: AssignmentStatus.IN_PROGRESS,
-          startTime: Date.now(),
-        })),
+        map((result: QuizAssignmentData) => ({ ...result.toObject(), ...patch })),
       );
   }
 
@@ -85,14 +83,11 @@ export class QuizAssignmentDomainService {
     { answers }: Pick<QuizAssignmentDto, 'answers'>,
     { role: userRole, id: userId }: AuthDataDto,
   ): Observable<QuizAssignmentDto> {
-    return this.quizAssignmentService.findById$(id)
+    const patch = { status: AssignmentStatus.DONE, endTime: Date.now() };
+
+    return this.quizAssignmentService.update$({ _id: id, ...patch })
       .pipe(
-        switchMap((assignment: QuizAssignmentData) => this.quizAssignmentService.update$({
-          ...assignment.toObject(),
-          answers,
-          status: AssignmentStatus.DONE,
-          endTime: Date.now(),
-        })),
+        map((result: QuizAssignmentData) => ({ ...result.toObject(), ...patch })),
       );
   }
 
@@ -115,15 +110,14 @@ export class QuizAssignmentDomainService {
   }
 
   public update$(
-    { _id, ...quizAssignmentDto }: Update<QuizAssignmentDto>,
+    { _id, ...patch }: Update<QuizAssignmentDto>,
     { role: userRole, id: userId }: AuthDataDto,
     correlationId: string,
   ): Observable<QuizAssignmentDto> {
     validateOperationByPermission(userRole, quizAssignmentPermissionModel, OperationType.UPDATE);
 
-    return this.quizAssignmentService.update$({ _id, ...quizAssignmentDto }).pipe(
-      map((result: QuizAssignmentData) => result.toObject()),
-      map((result: QuizAssignmentDto) => ({ _id, ...result, ...quizAssignmentDto })),
+    return this.quizAssignmentService.update$({ _id, ...patch }).pipe(
+      map((result: QuizAssignmentData) => ({ _id, ...result.toObject(), ...patch })),
     );
   }
 
