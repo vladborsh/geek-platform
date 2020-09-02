@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentStatus, QuizAssignmentDto, QuizDto, UserDto } from '@geek-platform/api-interfaces';
 import { EMPTY, Observable, of, combineLatest, timer, BehaviorSubject, Subject } from 'rxjs';
-import { filter, map, switchMap, take, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { filter, map, switchMap, take, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 import { UiSizes } from '@geek-platform/ui';
 import { QuizAssignmentService } from '../../services/quiz-assignment/quiz-assignment.service';
 import { UserService } from '../../services/user/user.service';
@@ -11,6 +11,7 @@ import { QuizAssignmentInterface } from '../quiz-assignment-page/config/quiz-ass
 import { either } from '../../helpers/either.helper';
 import { State } from './config/quiz-run.interface';
 import { generateState, saveSelectedAnswer, saveSubmittedAnswer } from './quiz-run.helpers';
+import { RouteUrls } from '../../enums/route.enum';
 
 @Component({
   selector: 'app-quiz-run',
@@ -20,6 +21,7 @@ import { generateState, saveSelectedAnswer, saveSubmittedAnswer } from './quiz-r
 })
 export class QuizRunComponent implements OnInit, OnDestroy {
   public assignment$: Observable<QuizAssignmentInterface>;
+  public timingSource$ = new BehaviorSubject<number>(0);
   public timer$: Observable<number>;
   public headerSizeMedium = UiSizes.MEDIUM;
   public headerSizeSmall = UiSizes.SMALL;
@@ -32,39 +34,28 @@ export class QuizRunComponent implements OnInit, OnDestroy {
     private quizAssignmentService: QuizAssignmentService,
     private userService: UserService,
     private quizService: QuizService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
+
+    timer(0, 1000)
+      .pipe(
+        takeUntil(this.onDestroy$),
+      )
+      .subscribe(tick => this.timingSource$.next((tick)));
+
     this.quizService.fetch$().subscribe();
     this.userService.fetch$().subscribe();
     this.quizAssignmentService.fetch$().subscribe();
+
     this.assignment$ = this.getAssignment$();
 
     this.timer$ = this.getTimer$();
+    this.questionsCount$ = this.getQuestionsCount$();
 
-    this.questionsCount$ = this.assignment$
-      .pipe(
-        filter(data => !!data && !!data.quiz),
-        map(data => data.quiz.questions.length),
-      );
-
-    this.timer$
-      .pipe(
-        filter(tick => tick <= 0),
-        switchMap(() => this.state$),
-        take(1),
-        takeUntil(this.onDestroy$),
-      )
-      .subscribe(state => this.state$.next({ ...state, isQuizFinished: true }));
-
-    this.state$
-      .pipe(
-        filter(state => state.isQuizFinished),
-        switchMap(() => this.assignment$),
-        switchMap(assignment => this.quizAssignmentService.stop$(assignment._id)),
-        take(1),
-      )
-      .subscribe();
+    this.setQuizFinishedByTimer$().subscribe();
+    this.submitQuizAnswers$().subscribe();
   }
 
   ngOnDestroy(): void {
@@ -87,7 +78,45 @@ export class QuizRunComponent implements OnInit, OnDestroy {
       );
   }
 
-  public submitQuizAnswers(): void {}
+  public onQuit(): void {
+    this.router.navigate([`${RouteUrls.HOME}/${RouteUrls.QUIZ}`]);
+  }
+
+  private getQuestionsCount$(): Observable<number> {
+    return this.assignment$
+      .pipe(
+        filter(data => !!data && !!data.quiz),
+        map(data => data.quiz.questions.length),
+      );
+  }
+
+  private setQuizFinishedByTimer$(): Observable<any> {
+    return combineLatest([
+        this.assignment$,
+        this.timingSource$,
+      ])
+      .pipe(
+        filter(([assignment]) => assignment.startTime !== null && (assignment.timeLimitMs - (Date.now() - assignment.startTime)) <= 0),
+        take(1),
+        tap(_ => this.state$.next({ ...this.state$.value, isQuizFinished: true })),
+        takeUntil(this.onDestroy$),
+      );
+  }
+
+  private submitQuizAnswers$(): Observable<QuizAssignmentDto> {
+    return this.state$
+      .pipe(
+        filter(state => state.isQuizFinished),
+        withLatestFrom(this.assignment$),
+        switchMap(([state, assignment ]) =>
+          this.quizAssignmentService.finish$(
+            assignment._id,
+            Object.values(state.questions).map(question => question.submittedAnswer),
+          ),
+        ),
+        take(1),
+      );
+  }
 
   private getAssignment$(): Observable<QuizAssignmentInterface> {
     return this.getQuizAssignmentId$()
@@ -100,7 +129,7 @@ export class QuizRunComponent implements OnInit, OnDestroy {
   private getTimer$(): Observable<number> {
     return combineLatest([
         this.assignment$,
-        timer(0, 1000),
+        this.timingSource$,
       ])
       .pipe(
         filter(([assignment]) => assignment.startTime !== null),

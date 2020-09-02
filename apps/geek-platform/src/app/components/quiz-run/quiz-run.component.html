@@ -15,6 +15,6 @@
 
 <div *ngIf="state$.getValue().isQuizFinished">
   <ui-header [size]="headerSizeSmall" class="space-bottom_5">Quiz is finished.</ui-header>
-  <ui-button label="Save and quit" (click)="submitQuizAnswers()"></ui-button>
+  <ui-button label="Quit" (click)="onQuit()"></ui-button>
 </div>
 
