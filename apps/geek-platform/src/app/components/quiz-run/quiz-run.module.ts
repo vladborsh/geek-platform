@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule, HeaderModule } from '@geek-platform/ui';
 import { QuizRunComponent } from './quiz-run.component';
 import { QuestionCardModule } from '../question-card/question-card.module';
-import { FormatTimerDownPipeModule } from '../../pipes/format-timer-down/format-timer-down.module';
+import { FormatTimeByColonPipeModule } from '../../pipes/format-time-by-colon/format-time-by-colon.module';
 
 @NgModule({
-  imports: [CommonModule, QuestionCardModule, HeaderModule, ButtonModule, FormatTimerDownPipeModule],
+  imports: [CommonModule, QuestionCardModule, HeaderModule, ButtonModule, FormatTimeByColonPipeModule],
   declarations: [QuizRunComponent],
   exports: [QuizRunComponent],
 })

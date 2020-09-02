@@ -22,7 +22,7 @@ import { RouteUrls } from '../../enums/route.enum';
 export class QuizRunComponent implements OnInit, OnDestroy {
   public assignment$: Observable<QuizAssignmentInterface>;
   public timingSource$ = new BehaviorSubject<number>(0);
-  public timer$: Observable<number>;
+  public quizTimer$: Observable<number>;
   public headerSizeMedium = UiSizes.MEDIUM;
   public headerSizeSmall = UiSizes.SMALL;
   public state$: BehaviorSubject<State> = new BehaviorSubject(generateState());
@@ -38,22 +38,13 @@ export class QuizRunComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-
-    timer(0, 1000)
-      .pipe(
-        takeUntil(this.onDestroy$),
-      )
-      .subscribe(tick => this.timingSource$.next((tick)));
-
+    this.initTimer().subscribe(tick => this.timingSource$.next(tick));
     this.quizService.fetch$().subscribe();
     this.userService.fetch$().subscribe();
     this.quizAssignmentService.fetch$().subscribe();
-
     this.assignment$ = this.getAssignment$();
-
-    this.timer$ = this.getTimer$();
+    this.quizTimer$ = this.getTimer$();
     this.questionsCount$ = this.getQuestionsCount$();
-
     this.setQuizFinishedByTimer$().subscribe();
     this.submitQuizAnswers$().subscribe();
   }
@@ -63,23 +54,30 @@ export class QuizRunComponent implements OnInit, OnDestroy {
     this.onDestroy$.complete();
   }
 
-  public onSaveSelectedAnswer(number: number, id: string): void {
-    this.state$.next(saveSelectedAnswer(this.state$.getValue(), number, id));
+  public onSaveSelectedAnswer(selectedAnswer: number, id: string): void {
+    this.state$.next(saveSelectedAnswer(this.state$.getValue(), selectedAnswer, id));
   }
 
-  public onSaveSubmittedAnswer(number: number, id: string): void {
+  public onSaveSubmittedAnswer(submittedAnswer: number, id: string): void {
     this.questionsCount$
       .pipe(
         withLatestFrom(this.state$),
         take(1),
       )
       .subscribe(
-        ([count, state]) => this.state$.next(saveSubmittedAnswer(state, number, id, count)),
+        ([count, state]) => this.state$.next(saveSubmittedAnswer(state, submittedAnswer, id, count)),
       );
   }
 
   public onQuit(): void {
     this.router.navigate([`${RouteUrls.HOME}/${RouteUrls.QUIZ}`]);
+  }
+
+  private initTimer(): Observable<number> {
+    return timer(0, 1000)
+      .pipe(
+        takeUntil(this.onDestroy$),
+      );
   }
 
   private getQuestionsCount$(): Observable<number> {

@@ -8,20 +8,20 @@ export function generateState(): State {
   };
 }
 
-export function saveSelectedAnswer(state: State, number: number, id: string): State {
+export function saveSelectedAnswer(state: State, selectedAnswer: number, id: string): State {
   return {
     ...state,
     questions: {
       ...state.questions,
       [id]: {
         ...state.questions[id],
-        selectedAnswers: !state.questions[id]?.selectedAnswers ? [number] : [...state.questions[id]?.selectedAnswers, number],
+        selectedAnswers: !state.questions[id]?.selectedAnswers ? [selectedAnswer] : [...state.questions[id]?.selectedAnswers, selectedAnswer],
       },
     },
   };
 }
 
-export function saveSubmittedAnswer(state: State, number: number, id: string, questionsCount: number): State {
+export function saveSubmittedAnswer(state: State, submittedAnswer: number, id: string, questionsCount: number): State {
   const currentQuestionIndex = state.currentQuestionIndex + 1 === questionsCount ? state.currentQuestionIndex : state.currentQuestionIndex + 1;
 
   return {
@@ -32,7 +32,7 @@ export function saveSubmittedAnswer(state: State, number: number, id: string, qu
       ...state.questions,
       [id]: {
         ...state.questions[id],
-        submittedAnswer: number,
+        submittedAnswer,
       },
     },
   };
