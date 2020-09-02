@@ -1,6 +1,20 @@
-<div *ngIf="assignment$ | async as assignment"> 
-  {{ assignment.quiz.name }}
+<div class="flex header-timer">
+  <ui-header [size]="headerSizeMedium" class="space-bottom_5">{{ quizTimer$ | async | formatTimeByColon }}</ui-header>
 </div>
 
 
-{{ timer$ | async | date : 'full' }}
+<div *ngIf="assignment$ | async as assignment">
+  <ui-header [size]="headerSizeMedium" class="space-bottom_5"> {{ assignment.quiz.name }}</ui-header>
+  <app-question-card
+    *ngIf="!state$.getValue().isQuizFinished"
+    [question]="assignment.quiz.questions[state$.getValue().currentQuestionIndex]"
+    (selected)="onSaveSelectedAnswer($event, assignment.quiz.questions[state$.getValue().currentQuestionIndex]._id)"
+    (submitted)="onSaveSubmittedAnswer($event, assignment.quiz.questions[state$.getValue().currentQuestionIndex]._id)">
+  </app-question-card>
+</div>
+
+<div *ngIf="state$.getValue().isQuizFinished">
+  <ui-header [size]="headerSizeSmall" class="space-bottom_5">Quiz is finished.</ui-header>
+  <ui-button label="Quit" (click)="onQuit()"></ui-button>
+</div>
+
