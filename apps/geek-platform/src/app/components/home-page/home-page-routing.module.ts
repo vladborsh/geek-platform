@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomePageComponent } from './home-page.component';
-import { WelcomePageComponent } from '../welcome-page/welcome-page.component';
 import { QuizPageComponent } from '../quiz-page/quiz-page.component';
 import { RouteUrls } from '../../enums/route.enum';
 import { QuizRunComponent } from '../quiz-run/quiz-run.component';
@@ -17,7 +16,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: WelcomePageComponent,
+        loadChildren: () => import('../welcome-page/welcome-page.module').then(m => m.WelcomePageModule),
       },
       {
         path: RouteUrls.QUIZ,
