@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomePageComponent } from './home-page.component';
-import { QuizPageComponent } from '../quiz-page/quiz-page.component';
 import { RouteUrls } from '../../enums/route.enum';
 import { QuizRunComponent } from '../quiz-run/quiz-run.component';
 import { EditorPageComponent } from '../editor-page/editor-page.component';
@@ -20,7 +19,7 @@ const routes: Routes = [
       },
       {
         path: RouteUrls.QUIZ,
-        component: QuizPageComponent,
+        loadChildren: () => import('../quiz-page/quiz-page.module').then(m => m.QuizPageModule),
       },
       {
         path: `${RouteUrls.QUIZ_RUN}/:quizAssignmentId`,
