@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, forwardRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, forwardRef, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -21,6 +21,9 @@ export class RadioComponent<T> implements ControlValueAccessor {
 
   public _value: T;
   public checked: boolean;
+
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+
   public onChange: Function = () => {};
   public onTouched: Function = () => {};
 
@@ -50,5 +53,7 @@ export class RadioComponent<T> implements ControlValueAccessor {
     if (value === this.item) {
       this.value = value;
     }
+
+    this.changeDetectorRef.markForCheck();
   }
 }
