@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { ButtonModule, NavigationModule } from '@geek-platform/ui';
 import { HomePageComponent } from './home-page.component';
+import { HomePageRoutingModule } from './home-page-routing.module';
 
 @NgModule({
   declarations: [HomePageComponent],
-  imports: [RouterModule.forRoot([]), CommonModule, ButtonModule, NavigationModule],
-  exports: [HomePageComponent],
+  imports: [HomePageRoutingModule, CommonModule, ButtonModule, NavigationModule],
 })
 export class HomePageModule {}
