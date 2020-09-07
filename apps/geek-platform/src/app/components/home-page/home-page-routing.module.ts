@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomePageComponent } from './home-page.component';
 import { RouteUrls } from '../../enums/route.enum';
-import { EditorPageComponent } from '../editor-page/editor-page.component';
 import { QuizAssignmentPageComponent } from '../quiz-assignment-page/quiz-assignment-page.component';
 import { QuizAssignmentCreatePageComponent } from '../quiz-assignment-create-page/quiz-assignment-create-page.component';
 
@@ -23,11 +22,10 @@ const routes: Routes = [
       {
         path: `${RouteUrls.QUIZ_RUN}/:quizAssignmentId`,
         loadChildren: () => import('../quiz-run/quiz-run.module').then(m => m.QuizRunModule),
-
       },
       {
         path: RouteUrls.EDITOR,
-        component: EditorPageComponent,
+        loadChildren: () => import('../editor-page/editor-page.module').then(m => m.EditorPageModule),
       },
       {
         path: RouteUrls.QUIZ_ASSIGNMENT,
