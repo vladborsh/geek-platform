@@ -49,6 +49,10 @@ export class QuizPageComponent implements OnInit {
     this.router.navigate([`${RouteUrls.HOME}/${RouteUrls.CREATOR}`]);
   }
 
+  public editQuiz(quizId: string): void {
+    this.router.navigate([`${RouteUrls.HOME}/${RouteUrls.EDITOR}/${quizId}`]);
+  }
+
   public runQuiz(quizId: string): void {
     this.runQuizAssignment$(quizId)
       .subscribe(quizAssignmentId =>
