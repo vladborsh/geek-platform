@@ -7,7 +7,6 @@ import { HomeGuard } from './route/guards/home-guard';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './components/app-routing/app-routing.module';
 import { LoginPageModule } from './components/login-page/login-page.module';
-import { QuizAssignmentCreatePageModule } from './components/quiz-assignment-create-page/quiz-assignment-create-page.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +15,6 @@ import { QuizAssignmentCreatePageModule } from './components/quiz-assignment-cre
     AppRoutingModule,
     HttpClientModule,
     LoginPageModule,
-    QuizAssignmentCreatePageModule,
     NoopAnimationsModule,
   ],
   providers: [HomeGuard],
