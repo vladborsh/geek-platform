@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomePageComponent } from './home-page.component';
 import { RouteUrls } from '../../enums/route.enum';
-import { QuizAssignmentPageComponent } from '../quiz-assignment-page/quiz-assignment-page.component';
 import { QuizAssignmentCreatePageComponent } from '../quiz-assignment-create-page/quiz-assignment-create-page.component';
 
 const routes: Routes = [
@@ -29,7 +28,7 @@ const routes: Routes = [
       },
       {
         path: RouteUrls.QUIZ_ASSIGNMENT,
-        component: QuizAssignmentPageComponent,
+        loadChildren: () => import('../quiz-assignment-page/quiz-assignment-page.module').then(m => m.QuizAssignmentPageModule),
       },
       {
         path: RouteUrls.QUIZ_ASSIGNMENT_NEW,
