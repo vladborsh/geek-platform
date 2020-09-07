@@ -26,6 +26,10 @@ const routes: Routes = [
         loadChildren: () => import('../editor-page/editor-page.module').then(m => m.EditorPageModule),
       },
       {
+        path: RouteUrls.CREATOR,
+        loadChildren: () => import('../creator-page/creator-page.module').then(m => m.CreatorPageModule),
+      },
+      {
         path: RouteUrls.QUIZ_ASSIGNMENT,
         loadChildren: () => import('../quiz-assignment-page/quiz-assignment-page.module').then(m => m.QuizAssignmentPageModule),
       },
