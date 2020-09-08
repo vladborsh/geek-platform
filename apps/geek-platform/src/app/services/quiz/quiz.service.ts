@@ -23,6 +23,14 @@ export class QuizService {
     );
   }
 
+  public fetchById$(id: string): Observable<QuizDto> {
+    return this.httpBackendService.get$<QuizDto>(`${this.url}/${id}`).pipe(
+      tap((res: QuizDto) => {
+        this._state.next({ ...this._state.getValue(), [res._id]: res });
+      }),
+    );
+  }
+
   public create$(quiz: Create<QuizDto>): Observable<QuizDto> {
     return this.httpBackendService.post$<Create<QuizDto>>(this.url, quiz).pipe(
       tap((res: QuizDto) => {

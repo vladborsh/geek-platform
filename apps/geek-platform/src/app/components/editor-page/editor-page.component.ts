@@ -48,7 +48,7 @@ export class EditorPageComponent implements OnInit, OnDestroy {
   private getQuiz(): Observable<unknown> {
     return this.getQuizId$()
       .pipe(
-        switchMap(quizId => this.quizService.getById$(quizId)),
+        switchMap(quizId => this.quizService.fetchById$(quizId)),
         filter(Boolean),
         take(1),
       );
