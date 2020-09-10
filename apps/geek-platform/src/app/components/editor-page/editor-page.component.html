@@ -1,1 +1,1 @@
-<app-quiz-editor></app-quiz-editor>
+<app-quiz-editor [model]="quiz$ | async" (modelChange)="onChangeQuiz($event)"></app-quiz-editor>

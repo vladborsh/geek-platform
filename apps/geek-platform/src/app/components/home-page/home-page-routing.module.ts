@@ -22,8 +22,12 @@ const routes: Routes = [
         loadChildren: () => import('../quiz-run/quiz-run.module').then(m => m.QuizRunModule),
       },
       {
-        path: RouteUrls.EDITOR,
+        path: `${RouteUrls.EDITOR}/:quizId`,
         loadChildren: () => import('../editor-page/editor-page.module').then(m => m.EditorPageModule),
+      },
+      {
+        path: RouteUrls.CREATOR,
+        loadChildren: () => import('../creator-page/creator-page.module').then(m => m.CreatorPageModule),
       },
       {
         path: RouteUrls.QUIZ_ASSIGNMENT,

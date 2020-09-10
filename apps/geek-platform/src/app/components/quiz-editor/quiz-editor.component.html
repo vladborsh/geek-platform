@@ -16,7 +16,7 @@
 
     <div class="flex">
       <ui-button *ngIf="state.isVisibleAddButton" label="Add" (click)="onAddQuestion()" class="space-top_5"></ui-button>
-      <ui-button label="Save" (click)="onSaveQuiz()" class="space-top_5"></ui-button>
+      <ui-button *ngIf="!state.quiz._id" label="Save" (click)="onSaveQuiz()" class="space-top_5"></ui-button>
     </div>
 
   </div>
